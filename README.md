@@ -1,4 +1,4 @@
-> [!DANGER]
+> [!WARNING]
 > As ferramentas disponibilizadas neste repositório **não são de minha autoria**. Este material tem como objetivo reunir, com base na minha experiência, **um conjunto de programas úteis e bem integrados**. Todos os **créditos e referências** aos autores originais serão devidamente reconhecidos.
 
 ## SLSsteam
