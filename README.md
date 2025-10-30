@@ -1,11 +1,11 @@
 > [!WARNING]
 > As ferramentas disponibilizadas neste repositório **não são de minha autoria**. Este material tem como objetivo reunir, com base na minha experiência, **um conjunto de programas úteis e bem integrados**. Todos os **créditos e referências** aos autores originais serão devidamente reconhecidos.
 
-## SLSsteam
+## 1. SLSsteam
 
 **Fonte:** ([GitHub - AceSLS/SLSsteam](https://github.com/AceSLS/SLSsteam)), [Reddit - GUIA](https://www.reddit.com/r/SteamDeckPirates/comments/1leqim0/guide_slssteam_how_to_unlock_dlcs_bypass_family/?tl=pt-br)
 
-## ACCELA
+## 2. ACCELA
 
 **Fonte:** [Youtube - JD Ros](https://www.youtube.com/watch?v=jQUEtr200SU)
 
@@ -20,7 +20,7 @@
 | Propósito            | Instala o ACCELA ✅ | Instala o ACCELA ✅                                   |
 | Funcionalidade extra | Nenhuma ❌          | Verifica dependências e limpa instalações antigas. ✅ |
 
-## SLSah
+## 3. SLSah
 
 **Fonte:** [GitHub - niwia/SLSah](https://github.com/niwia/SLSah) 
 
@@ -30,3 +30,15 @@
 | -------------------- | ----------------- | ---------------------------------------------------------------------------- |
 | Propósito            | Instala o SLSah ✅ | Instala o SLSah ✅                                                            |
 | Funcionalidade extra | Nenhuma ❌         | Verifica dependências, detecta o terminal correto e cria atalho universal. ✅ |
+
+## Instalação da trindade ┿
+
+```bash
+git clone https://github.com/aglairdev/sls-trin.git
+cd sls-trin
+./install.sh
+```
+
+### Demo
+
+![](/mnt/sdc1/Projetos/sls-trin/demo.gif)
