@@ -41,4 +41,4 @@ cd sls-trin
 
 ### Demo
 
-![](/mnt/sdc1/Projetos/sls-trin/demo.gif)
+![demo](demo.gif)
