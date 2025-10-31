@@ -36,9 +36,17 @@
 ```bash
 git clone https://github.com/aglairdev/sls-trin.git
 cd sls-trin
+sudo chmod +x install.sh
 ./install.sh
 ```
 
-### Demo
+## Desinstalação
+
+```bash
+sudo chmod +x uninstall.sh
+./uninstall.sh
+```
+
+## Demo
 
 ![demo](demo.gif)
