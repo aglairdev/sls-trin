@@ -34,6 +34,20 @@
 curl -sSL https://raw.githubusercontent.com/aglairdev/sls-trin/main/install.sh | bash
 ```
 
+## Config
+
+### SLSsteam
+
+`~/.config/SLSsteam/config.yaml`
+
+PlayNotOwnedGames: yes
+
+### Accela
+
+![accela-config](accela-config.png)
+
+![accela-config-2](accela-config-2.png)
+
 ## Desinstalação
 
 ```bash
