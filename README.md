@@ -31,14 +31,13 @@
 ## Instalação da trindade ┿
 
 ```bash
-git clone https://github.com/aglairdev/sls-trin.git
-cd sls-trin
-./install.sh
+curl -sSL https://raw.githubusercontent.com/aglairdev/sls-trin/main/install.sh | bash
 ```
 
 ## Desinstalação
 
 ```bash
+cd ~/sls-trin
 ./uninstall.sh
 ```
 
