@@ -106,22 +106,38 @@ EOF
     fi
 fi
 
-# Clonagem do repositório principal
+# Clonagem ou atualização do repositório principal
 echo
-echo "Clonando repositório principal $main_repo..."
-rm -rf "$project_root/$main_repo"
-git clone "https://github.com/aglairdev/$main_repo.git" "$project_root/$main_repo" --quiet
+if [ -d "$project_root/$main_repo" ]; then
+    echo "Pasta $main_repo já existe. Atualizando via git pull..."
+    cd "$project_root/$main_repo"
+    git reset --hard HEAD >/dev/null 2>&1
+    git pull --quiet
+    cd "$project_root"
+    echo "${color_green}$symbol_check Repositório atualizado${color_reset}"
+else
+    echo "Clonando repositório principal $main_repo..."
+    git clone "https://github.com/aglairdev/$main_repo.git" "$project_root/$main_repo" --quiet
+fi
 
 # Clonagem do SLSsteam dentro do repositório principal
 echo
-echo "Clonando SLSsteam dentro de $main_repo..."
-rm -rf "$project_root/$main_repo/SLSsteam"
-git clone "https://github.com/AceSLS/SLSsteam.git" "$project_root/$main_repo/SLSsteam" --quiet
+echo "Clonando/atualizando SLSsteam dentro de $main_repo..."
+slssteam_dir="$project_root/$main_repo/SLSsteam"
+if [ -d "$slssteam_dir" ]; then
+    cd "$slssteam_dir"
+    git reset --hard HEAD >/dev/null 2>&1
+    git pull --quiet
+    cd "$project_root/$main_repo"
+    echo "${color_green}$symbol_check SLSsteam atualizado${color_reset}"
+else
+    git clone "https://github.com/AceSLS/SLSsteam.git" "$slssteam_dir" --quiet
+fi
 
 # SLSsteam
 echo
 echo "Instalando SLSsteam..."
-cd "$project_root/$main_repo/SLSsteam"
+cd "$slssteam_dir"
 make >/dev/null 2>&1
 chmod +x setup.sh
 ./setup.sh install >/dev/null 2>&1
