@@ -1,6 +1,3 @@
-> [!WARNING]
-> As ferramentas disponibilizadas neste repositório **não são de minha autoria**. Este material tem como objetivo reunir, com base na minha experiência, **um conjunto de programas úteis e bem integrados**. Todos os **créditos e referências** aos autores originais serão devidamente reconhecidos.
-
 ## 1. SLSsteam
 
 **Fonte:** ([GitHub - AceSLS/SLSsteam](https://github.com/AceSLS/SLSsteam)), [Reddit - GUIA](https://www.reddit.com/r/SteamDeckPirates/comments/1leqim0/guide_slssteam_how_to_unlock_dlcs_bypass_family/?tl=pt-br)
@@ -11,7 +8,7 @@
 
 > [!WARNING]
 > 
-> Não encontrei, além do vídeo mencionado, o responsável direto pelo desenvolvimento do programa. No entanto, o instalador inclui uma pasta `bin/` com diversos arquivos em Python e outros recursos do aplicativo, o que possibilita analisar e compreender seu funcionamento.
+> Não encontrei o responsável direto por essa ferramenta. No entanto, ao analisar o arquivo `main.py` disponível, é possível observar que ela utiliza o projeto [SteamDepotDownloaderGUI](https://github.com/mmvanheusden/SteamDepotDownloaderGUI?tab=readme-ov-file) como base.
 
 ### Diferenças entre o instalador original e a versão modificada
 
@@ -36,14 +33,12 @@
 ```bash
 git clone https://github.com/aglairdev/sls-trin.git
 cd sls-trin
-sudo chmod +x install.sh
 ./install.sh
 ```
 
 ## Desinstalação
 
 ```bash
-sudo chmod +x uninstall.sh
 ./uninstall.sh
 ```
 
