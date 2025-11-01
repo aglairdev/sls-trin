@@ -50,6 +50,21 @@ fi
 deactivate
 chmod +x run.sh
 
+# --- Busca da biblioteca Steam (não fatal) ---
+{
+    LIBRARY_FILE=$(find "$HOME" -type f -name "libraryfolders.vdf" 2>/dev/null | head -n 1 || true)
+    if [ -n "${LIBRARY_FILE:-}" ]; then
+        TARGET_DIR="$HOME/.local/share/Steam/steamapps"
+        TARGET_FILE="$TARGET_DIR/libraryfolders.vdf"
+        mkdir -p "$TARGET_DIR"
+        if [ ! -L "$TARGET_FILE" ] || [ "$(readlink "$TARGET_FILE" 2>/dev/null || true)" != "$LIBRARY_FILE" ]; then
+            ln -sf "$LIBRARY_FILE" "$TARGET_FILE" >/dev/null 2>&1 || true
+        fi
+    else
+        echo "Biblioteca Steam não encontrada."
+    fi
+} || true
+
 if command -v gnome-terminal >/dev/null 2>&1; then
     TERMINAL="gnome-terminal --"
 elif command -v konsole >/dev/null 2>&1; then
