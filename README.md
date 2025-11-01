@@ -34,6 +34,8 @@
 curl -sSL https://raw.githubusercontent.com/aglairdev/sls-trin/main/install.sh | bash
 ```
 
+- [Tutorial em vídeo](https://www.youtube.com/watch?v=MH8kYaEtA6U)
+
 ## Config
 
 ### SLSsteam
