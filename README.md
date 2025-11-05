@@ -46,14 +46,24 @@ PlayNotOwnedGames: yes
 
 ### Accela
 
-![accela-config](accela-config.png)
+<p align="center">
+  <img src="accela-config.png" width="400"/>
+  <img src="accela-config-2.png" width="400"/>
+</p>
 
-![accela-config-2](accela-config-2.png)
+## Backup de saves/conquistas
+
+```bash
+cd ~/sls-trin
+sudo chmod +x backup.sh
+./backup.sh
+```
 
 ## Desinstalação
 
 ```bash
 cd ~/sls-trin
+sudo chmod +x uninstall.sh
 ./uninstall.sh
 ```
 
