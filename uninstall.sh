@@ -34,6 +34,17 @@ else
     echo "${red}$cross SLSsteam não está instalada${reset}"
 fi
 
+# Configuração SLSsteam
+echo
+echo "Removendo configuração do SLSsteam..."
+CONFIG_SLSSTEAM="$HOME/.config/SLSsteam"
+if [ -d "$CONFIG_SLSSTEAM" ]; then
+    rm -rf "$CONFIG_SLSSTEAM"
+    echo "${green}$check Configuração SLSsteam removida com sucesso${reset}"
+else
+    echo "${red}$cross Configuração SLSsteam não encontrada${reset}"
+fi
+
 # ACCELA
 echo
 echo "Removendo ACCELA..."
