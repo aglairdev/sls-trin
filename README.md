@@ -51,6 +51,10 @@ PlayNotOwnedGames: yes
   <img src="accela-config-2.png" width="400"/>
 </p>
 
+### Driver recomendado (Nvidia)
+
+- nvidia-driver-570
+
 ## Backup de saves/conquistas
 
 ```bash
