@@ -43,7 +43,7 @@ sudo -v
 dependencies=(
     git make unzip g++ pkg-config figlet whiptail libssl-dev
     g++-multilib gcc-multilib libc6-dev-i386 libssl-dev:i386
-    python3.13 python3.13-venv python3.10-venv
+    python3.13 python3.13-venv python3.12-venv python3.10-venv
     libxcb-cursor0 libxcb-xinerama0 libxcb-icccm4 libxcb-image0
     libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-shape0
     libxcb-xfixes0 libxkbcommon-x11-0 libglu1-mesa
