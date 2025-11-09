@@ -55,6 +55,10 @@ PlayNotOwnedGames: yes
 
 - nvidia-driver-570
 
+### Manifests
+
+- [generator.ryuu.lol](https://generator.ryuu.lol/)
+
 ## Backup de saves/conquistas
 
 ```bash
@@ -74,3 +78,16 @@ sudo chmod +x uninstall.sh
 ## Demo
 
 ![demo](demo.gif)
+
+## Fix
+
+### Jogos com launcher
+
+- [Fixes](https://generator.ryuu.lol/fixes)
+- [Tutorial em vídeo](https://www.youtube.com/watch?v=a2dd0BnXN4s)
+
+### Application load error 6:0000065432
+
+- [PortProton](https://flathub.org/pt-BR/apps/ru.linux_gaming.PortProton)
+- [Steamless](https://github.com/atom0s/Steamless)
+- [Tutorial em vídeo](https://www.youtube.com/watch?v=fOxr_FuCRdA)
