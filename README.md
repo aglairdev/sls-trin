@@ -28,6 +28,14 @@
 | Propósito            | Instala o SLSah ✅ | Instala o SLSah ✅                                                            |
 | Funcionalidade extra | Nenhuma ❌         | Verifica dependências, detecta o terminal correto e cria atalho universal. ✅ |
 
+### 3.1 SLScheevo
+
+**Fonte:** [Github - xamionex/SLScheevo](https://github.com/xamionex/SLScheevo)
+
+> [!WARNING]
+> 
+> Esta ferramenta não está incluída no script de automação. É preciso fazer a instalação manual, caso a prefira. Sua vantagem em relação à implementada é gerar conquistas sem erros em idiomas diferentes do inglês.
+
 ## Instalação da trindade ┿
 
 ```bash
