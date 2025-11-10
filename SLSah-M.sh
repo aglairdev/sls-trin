@@ -30,7 +30,7 @@ fi
 
 # Verificando se o diretório já existe
 if [ -d "$INSTALL_DIR" ]; then
-    echo "${yellow}⚠️ Diretório já existe. Atualizando repositório com git pull...${reset}"
+    echo "${yellow} Diretório já existe. Atualizando repositório com git pull...${reset}"
     cd "$INSTALL_DIR"
     if git pull >/dev/null 2>&1; then
         echo "${green}$check Repositório atualizado com sucesso${reset}"
@@ -45,10 +45,13 @@ else
         echo "${green}$check Repositório clonado com sucesso${reset}"
     else
         echo "${red}$cross Falha ao clonar repositório. Detalhes:"
-        git clone "$REPO_URL" "$INSTALL_DIR" -v # Executa novamente para mostrar os detalhes do erro
+        git clone "$REPO_URL" "$INSTALL_DIR" -v 
         exit 1
     fi
 fi
+
+# Garantindo que o script 'run.sh' tenha permissão de execução
+chmod +x "$INSTALL_DIR/run.sh"
 
 # Criando ambiente virtual
 echo
