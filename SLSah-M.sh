@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+red=$(tput setaf 1)
+reset=$(tput sgr0)
+check="✓"
+cross="𐄂"
+
+INSTALL_DIR="$HOME/steam-schema-generator"
+REPO_URL="https://github.com/niwia/SLSah.git"
+DESKTOP_ENTRY_DIR="$HOME/.local/share/applications"
+DESKTOP_FILE="$DESKTOP_ENTRY_DIR/steam-schema-generator.desktop"
+
+# Dependências
 REQUIRED_PKGS=("git" "python3" "python3-venv" "python3-pip")
 MISSING=()
 
@@ -11,46 +24,57 @@ for pkg in "${REQUIRED_PKGS[@]}"; do
 done
 
 if [ ${#MISSING[@]} -gt 0 ]; then
-    if command -v apt &>/dev/null; then
-        sudo apt update -y >/dev/null 2>&1
-        sudo apt install -y "${MISSING[@]}" >/dev/null 2>&1
-    elif command -v dnf &>/dev/null; then
-        sudo dnf install -y "${MISSING[@]}" >/dev/null 2>&1
-    elif command -v pacman &>/dev/null; then
-        sudo pacman -Sy --needed "${MISSING[@]}" >/dev/null 2>&1
+    echo "${red}$cross Pacotes necessários não encontrados: ${MISSING[@]}${reset}"
+    exit 1
+fi
+
+# Verificando se o diretório já existe
+if [ -d "$INSTALL_DIR" ]; then
+    echo "${yellow}⚠️ Diretório já existe. Atualizando repositório com git pull...${reset}"
+    cd "$INSTALL_DIR"
+    if git pull >/dev/null 2>&1; then
+        echo "${green}$check Repositório atualizado com sucesso${reset}"
     else
+        echo "${red}$cross Falha ao atualizar repositório com git pull${reset}"
+        exit 1
+    fi
+else
+    echo
+    echo "Clonando repositório do SLSah..."
+    if git clone "$REPO_URL" "$INSTALL_DIR" -v >/dev/null 2>&1; then
+        echo "${green}$check Repositório clonado com sucesso${reset}"
+    else
+        echo "${red}$cross Falha ao clonar repositório. Detalhes:"
+        git clone "$REPO_URL" "$INSTALL_DIR" -v # Executa novamente para mostrar os detalhes do erro
         exit 1
     fi
 fi
 
-INSTALL_DIR="$HOME/steam-schema-generator"
-REPO_URL="https://github.com/niwia/SLSah.git"
-DESKTOP_ENTRY_DIR="$HOME/.local/share/applications"
-DESKTOP_FILE="$DESKTOP_ENTRY_DIR/steam-schema-generator.desktop"
-
-mkdir -p "$INSTALL_DIR"
-cd "$INSTALL_DIR"
-
-if [ -d ".git" ]; then
-    git reset --hard HEAD >/dev/null 2>&1
-    git pull >/dev/null 2>&1
+# Criando ambiente virtual
+echo
+echo "Criando ambiente virtual..."
+if python3 -m venv "$INSTALL_DIR/.venv" >/dev/null 2>&1; then
+    echo "${green}$check Ambiente virtual criado com sucesso${reset}"
 else
-    git clone "$REPO_URL" . >/dev/null 2>&1
+    echo "${red}$cross Falha ao criar ambiente virtual${reset}"
+    exit 1
 fi
 
-if [ ! -d ".venv" ]; then
-    python3 -m venv .venv
-fi
-
-source .venv/bin/activate
-pip install --upgrade pip >/dev/null 2>&1
-if [ -f "requirements.txt" ]; then
-    pip install -r requirements.txt >/dev/null 2>&1
+# Instalando dependências
+echo
+echo "Instalando dependências do requirements.txt..."
+source "$INSTALL_DIR/.venv/bin/activate"
+if pip install --upgrade pip >/dev/null 2>&1 && pip install -r "$INSTALL_DIR/requirements.txt" >/dev/null 2>&1; then
+    echo "${green}$check Dependências instaladas com sucesso${reset}"
+else
+    echo "${red}$cross Falha ao instalar dependências${reset}"
+    exit 1
 fi
 deactivate
-chmod +x run.sh
 
-# --- Busca da biblioteca Steam (não fatal) ---
+# Verificando a biblioteca Steam
+echo
+echo "Verificando a biblioteca Steam..."
 {
     LIBRARY_FILE=$(find "$HOME" -type f -name "libraryfolders.vdf" 2>/dev/null | head -n 1 || true)
     if [ -n "${LIBRARY_FILE:-}" ]; then
@@ -60,11 +84,15 @@ chmod +x run.sh
         if [ ! -L "$TARGET_FILE" ] || [ "$(readlink "$TARGET_FILE" 2>/dev/null || true)" != "$LIBRARY_FILE" ]; then
             ln -sf "$LIBRARY_FILE" "$TARGET_FILE" >/dev/null 2>&1 || true
         fi
+        echo "${green}$check Biblioteca Steam vinculada com sucesso${reset}"
     else
-        echo "Biblioteca Steam não encontrada."
+        echo "${red}$cross Biblioteca Steam não encontrada${reset}"
     fi
 } || true
 
+# Detectando terminal para execução
+echo
+echo "Detectando terminal para execução..."
 if command -v gnome-terminal >/dev/null 2>&1; then
     TERMINAL="gnome-terminal --"
 elif command -v konsole >/dev/null 2>&1; then
@@ -75,10 +103,13 @@ elif command -v x-terminal-emulator >/dev/null 2>&1; then
     TERMINAL="x-terminal-emulator -e"
 else
     TERMINAL="bash -c"
+    echo "${red}$cross Terminal não encontrado, utilizando bash padrão${reset}"
 fi
 
+# Criando atalho na área de trabalho
+echo
+echo "Criando atalho na área de trabalho..."
 mkdir -p "$DESKTOP_ENTRY_DIR"
-
 cat > "$DESKTOP_FILE" <<EOL
 [Desktop Entry]
 Name=Steam Schema Generator
@@ -89,9 +120,18 @@ Terminal=false
 Type=Application
 Categories=Utility;
 EOL
-
 chmod +x "$DESKTOP_FILE"
 
+# Atualizando banco de dados de aplicativos
+echo
+echo "Atualizando banco de dados de aplicativos..."
 if command -v update-desktop-database &>/dev/null; then
     update-desktop-database "$DESKTOP_ENTRY_DIR" >/dev/null 2>&1 || true
+    echo "${green}$check Banco de dados de aplicativos atualizado com sucesso${reset}"
+else
+    echo "${red}$cross Falha ao atualizar banco de dados de aplicativos${reset}"
 fi
+
+# Finalização
+echo
+echo "${green}$check Instalação do SLSah concluída com sucesso!${reset}"
