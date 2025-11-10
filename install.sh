@@ -3,7 +3,8 @@
 set -e
 
 project_root="$(pwd)"
-main_repo="sls-trin"
+main_repo="SLStools"
+repo_url="https://github.com/aglairdev/$main_repo.git"
 
 color_green=$(tput setaf 2)
 color_red=$(tput setaf 1)
@@ -11,7 +12,7 @@ color_reset=$(tput sgr0)
 
 symbol_check="✓"
 symbol_cross="𐄂"
-symbol_divider="┿"
+symbol_divider="⚒"
 
 # Spinner
 spinner() {
@@ -28,11 +29,11 @@ spinner() {
 }
 
 echo
-echo "---------------------------------------"
-echo "         SLS TRIN $symbol_divider         "
-echo "---------------------------------------"
-echo "  Instalando SLSsteam, ACCELA e SLSah"
-echo "---------------------------------------"
+echo "------------------------------------------------"
+echo "         SLStools $symbol_divider         "
+echo "------------------------------------------------"
+echo "  Instalando SLSsteam, ACCELA, SLSah e SLScheevo"
+echo "------------------------------------------------"
 
 # Password
 echo
@@ -73,7 +74,7 @@ echo "${color_green}$symbol_check Dependências instaladas com sucesso${color_re
 
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig"
 
-# Verificação e criação do atalho da Steam
+# Atalho Steam
 echo
 echo "Verificando instalação da Steam..."
 
@@ -106,7 +107,7 @@ EOF
     fi
 fi
 
-# Clonagem ou atualização do repositório principal
+# Clonagem SLStools
 echo
 if [ -d "$project_root/$main_repo" ]; then
     echo "Pasta $main_repo já existe. Atualizando via git pull..."
@@ -117,10 +118,10 @@ if [ -d "$project_root/$main_repo" ]; then
     echo "${color_green}$symbol_check Repositório atualizado${color_reset}"
 else
     echo "Clonando repositório principal $main_repo..."
-    git clone "https://github.com/aglairdev/$main_repo.git" "$project_root/$main_repo" --quiet
+    git clone "$repo_url" "$project_root/$main_repo" --quiet
 fi
 
-# Clonagem do SLSsteam dentro do repositório principal
+# Clonagem do SLSsteam
 echo
 echo "Clonando/atualizando SLSsteam dentro de $main_repo..."
 slssteam_dir="$project_root/$main_repo/SLSsteam"
@@ -134,7 +135,7 @@ else
     git clone "https://github.com/AceSLS/SLSsteam.git" "$slssteam_dir" --quiet
 fi
 
-# SLSsteam
+# Instalação SLSsteam
 echo
 echo "Instalando SLSsteam..."
 cd "$slssteam_dir"
@@ -145,7 +146,7 @@ echo "${color_green}$symbol_check SLSsteam instalado com sucesso${color_reset}"
 
 cd "$project_root/$main_repo"
 
-# ACCELA
+# Instalação ACCELA
 echo
 echo "Instalando ACCELA..."
 
@@ -170,20 +171,25 @@ else
     exit 1
 fi
 
-cd "$project_root/$main_repo"
-
-# SLSah
+# SLSah (já dentro do repositório SLStools)
 echo
-echo "Instalando SLSah..."
-if [ ! -f "$project_root/$main_repo/SLSah-M.sh" ]; then
-    echo "${color_red}$symbol_cross Script SLSah-M.sh não encontrado!${color_reset}"
-    exit 1
-fi
+echo "SLSah já foi clonado do repositório SLStools."
 
-chmod +x "$project_root/$main_repo/SLSah-M.sh"
-"$project_root/$main_repo/SLSah-M.sh" >/dev/null 2>&1
-echo "${color_green}$symbol_check SLSah instalada com sucesso${color_reset}"
+# Clonando SLScheevo
+echo
+echo "Clonando SLScheevo dentro de $main_repo..."
+slscheevo_dir="$project_root/$main_repo/SLScheevo"
+if [ -d "$slscheevo_dir" ]; then
+    cd "$slscheevo_dir"
+    git reset --hard HEAD >/dev/null 2>&1
+    git pull --quiet
+    cd "$project_root/$main_repo"
+    echo "${color_green}$symbol_check SLScheevo atualizado${color_reset}"
+else
+    git clone "https://github.com/xamionex/SLScheevo.git" "$slscheevo_dir" --quiet
+    echo "${color_green}$symbol_check SLScheevo clonado com sucesso${color_reset}"
+fi
 
 # Finalização
 echo
-echo "${color_green}$symbol_check SLSsteam, ACCELA e SLSah instalados com sucesso${color_reset}"
+echo "${color_green}$symbol_check SLSsteam, ACCELA, SLSah e SLScheevo foram adicionados com sucesso. ${color_reset}"
