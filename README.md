@@ -28,18 +28,18 @@
 | Propósito            | Instala o SLSah ✅ | Instala o SLSah ✅                                                            |
 | Funcionalidade extra | Nenhuma ❌         | Verifica dependências, detecta o terminal correto e cria atalho universal. ✅ |
 
-### 3.1 SLScheevo
+## 4. SLScheevo
 
 **Fonte:** [Github - xamionex/SLScheevo](https://github.com/xamionex/SLScheevo)
 
-> [!WARNING]
+> [!TIP]
 > 
-> Esta ferramenta não está incluída no script de automação. É preciso fazer a instalação manual, caso a prefira. Sua vantagem em relação à implementada é gerar conquistas sem erros em idiomas diferentes do inglês.
+> SLSah e SLScheevo são ferramentas responsáveis por gerar conquistas. As principais diferenças entre elas são que a segunda opção funciona sem erros em idiomas diferentes do inglês e tem meios de autenticação distintos. Fiz um vídeo mostrando o bug ao tentar gerar conquistas em pt-br com a primeira opção: [SLSah vs SLScheevo](https://www.youtube.com/watch?v=_X0CgRynwLQ).
 
-## Instalação da trindade ┿
+## Instalação SLStools ⚒
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/aglairdev/sls-trin/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/main/install.sh | bash
 ```
 
 - [Tutorial em vídeo](https://www.youtube.com/watch?v=MH8kYaEtA6U)
