@@ -3,7 +3,7 @@
 set -e
 
 ROOT_DIR="$(pwd)"
-REPO_NAME="sls-trin"
+REPO_NAME="SLStools"
 
 green=$(tput setaf 2)
 red=$(tput setaf 1)
@@ -11,14 +11,14 @@ reset=$(tput sgr0)
 
 check="✓"
 cross="𐄂"
-divider="┿"
+divider="⚒"
 
 echo
 echo "------------------------------"
-echo "      REMOÇÃO SLS TRIN $divider      "
+echo "      REMOÇÃO SLStools $divider      "
 echo "------------------------------"
 
-# SLSsteam
+# Remoção SLSsteam
 echo
 echo "Removendo SLSsteam..."
 SLSSTEAM_DIR="$ROOT_DIR/SLSsteam"
@@ -34,7 +34,6 @@ else
     echo "${red}$cross SLSsteam não está instalada${reset}"
 fi
 
-# Configuração SLSsteam
 echo
 echo "Removendo configuração do SLSsteam..."
 CONFIG_SLSSTEAM="$HOME/.config/SLSsteam"
@@ -45,7 +44,7 @@ else
     echo "${red}$cross Configuração SLSsteam não encontrada${reset}"
 fi
 
-# ACCELA
+# Remoção ACCELA
 echo
 echo "Removendo ACCELA..."
 ACCELA_DIR="$HOME/.local/share/ACCELA"
@@ -66,7 +65,7 @@ else
     echo "${red}$cross ACCELA não está instalada${reset}"
 fi
 
-# SLSah
+# Remoção SLSah
 echo
 echo "Removendo SLSah..."
 SLSAH_DIR="$HOME/steam-schema-generator"
@@ -81,6 +80,17 @@ if [ -d "$SLSAH_DIR" ] || [ -f "$SLSAH_DESKTOP" ]; then
     echo "${green}$check SLSah removida com sucesso${reset}"
 else
     echo "${red}$cross SLSah não está instalada${reset}"
+fi
+
+# Remoção SLScheevo
+echo
+echo "Removendo SLScheevo..."
+SLSCHEEVO_DIR="$ROOT_DIR/SLScheevo"
+if [ -d "$SLSCHEEVO_DIR" ]; then
+    rm -rf "$SLSCHEEVO_DIR"
+    echo "${green}$check SLScheevo removido com sucesso${reset}"
+else
+    echo "${red}$cross SLScheevo não está instalado${reset}"
 fi
 
 # Restaurar atalho padrão da Steam
@@ -107,7 +117,7 @@ else
     echo "${red}$cross Steam não encontrada para restaurar atalho${reset}"
 fi
 
-# Repositório
+# Remoção repositório
 echo
 echo "Removendo diretório $REPO_NAME..."
 cd ..
@@ -116,4 +126,4 @@ echo "${green}$check Diretório $REPO_NAME removido com sucesso${reset}"
 
 # Finalização
 echo
-echo "${green}$check SLSsteam, ACCELA e SLSah foram removidos com sucesso${reset}"
+echo "${green}$check SLSsteam, ACCELA, SLSah e SLScheevo foram removidos com sucesso${reset}"
