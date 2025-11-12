@@ -70,7 +70,7 @@ PlayNotOwnedGames: yes
 ## Backup de saves/conquistas
 
 ```bash
-cd ~/sls-trin
+cd ~/SLStools
 sudo chmod +x backup.sh
 ./backup.sh
 ```
@@ -78,7 +78,7 @@ sudo chmod +x backup.sh
 ## Desinstalação
 
 ```bash
-cd ~/sls-trin
+cd ~/SLStools
 sudo chmod +x uninstall.sh
 ./uninstall.sh
 ```
