@@ -62,10 +62,17 @@ PlayNotOwnedGames: yes
 ### Driver recomendado (Nvidia)
 
 - nvidia-driver-570
+  
+### Manifest
 
-### Manifests
+Irei recomendar duas alternativas. Caso uma delas fique instável, você pode tentar a outra:
 
-- [generator.ryuu.lol](https://generator.ryuu.lol/)
+1. **Opção principal**: [generator.ryuu.lol](https://generator.ryuu.lol/)
+
+2. **Alternativa**: [Discord - LuaTools](https://discord.com/invite/luatools)  
+   Entre no canal **`#gen-games-here`** e envie o **ID do jogo** para gerar o manifest.  
+   Para encontrar o ID do jogo, acesse [SteamDB](https://steamdb.info/), busque pelo jogo desejado e pegue o **ID do aplicativo** (AppID).  
+   Exemplo: `40800`
 
 ## Backup de saves/conquistas
 
