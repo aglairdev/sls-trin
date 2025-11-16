@@ -157,7 +157,7 @@ if [ ! -f "$project_root/$main_repo/Accela-M.zip" ]; then
 fi
 
 unzip -o "$project_root/$main_repo/Accela-M.zip" -d "$project_root/$main_repo" >/dev/null 2>&1
-cd "$project_root/$main_repo/ACCELA-M"
+cd "$project_root/$main_repo/Accela-M"
 chmod +x ./ACCELAINSTALL
 ./ACCELAINSTALL || {
     echo "${color_red}$symbol_cross Falha na instalação do ACCELA${color_reset}"
