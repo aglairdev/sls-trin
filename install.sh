@@ -2,7 +2,6 @@
 
 set -e
 
-# Diretório do projeto e repositórios
 project_root="$HOME/SLStools"
 repo_url="https://github.com/aglairdev/SLStools.git"
 conquistas_dir="$project_root/conquistas"
@@ -16,7 +15,6 @@ symbol_check="✓"
 symbol_cross="𐄂"
 symbol_divider="⚒"
 
-# Spinner
 spinner() {
     local pid=$!
     local delay=0.1
@@ -38,12 +36,10 @@ echo "    Instalando SLStools         "
 echo "#------------------------------#"
 echo
 
-# Password
 echo
 echo "[sudo] Será solicitada a senha para continuar..."
 sudo -v
 
-# Dependências
 dependencies=(
     git make unzip g++ pkg-config figlet whiptail libssl-dev
     g++-multilib gcc-multilib libc6-dev-i386 libssl-dev:i386
@@ -77,7 +73,6 @@ echo "${color_green}$symbol_check Dependências instaladas com sucesso${color_re
 
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig"
 
-# Repositório principal
 echo
 if [ -d "$project_root/.git" ]; then
     echo "Repositório principal já existe. Atualizando via git pull..."
@@ -91,7 +86,6 @@ else
     echo "${color_green}$symbol_check Repositório principal clonado com sucesso${color_reset}"
 fi
 
-# SLSsteam
 echo
 echo "Clonando/atualizando SLSsteam dentro de $scripts_dir..."
 slssteam_dir="$scripts_dir/SLSsteam"
@@ -110,10 +104,9 @@ echo "Instalando SLSsteam..."
 cd "$slssteam_dir"
 make >/dev/null 2>&1
 chmod +x setup.sh
-./setup.sh install >/dev/null 2>&1
+./setup.sh install >/dev/null 2>&1 || true
 echo "${color_green}$symbol_check SLSsteam instalado com sucesso${color_reset}"
 
-# SLScheevo
 echo
 echo "Clonando/atualizando SLScheevo dentro de $conquistas_dir..."
 slscheevo_dir="$conquistas_dir/SLScheevo"
@@ -127,7 +120,6 @@ else
     echo "${color_green}$symbol_check SLScheevo clonado com sucesso${color_reset}"
 fi
 
-# SLStools zip
 echo
 echo "Instalando SLStools..."
 slstools_dir="$scripts_dir/SLStools"
@@ -135,20 +127,22 @@ slstools_dir="$scripts_dir/SLStools"
 if ls "$slstools_dir"/SLStools.zip.* >/dev/null 2>&1; then
     echo "Unindo partes do SLStools.zip..."
     cd "$slstools_dir"
-    cat SLStools.zip.001 SLStools.zip.002 SLStools.zip.003 SLStools.zip.004 > SLStools.zip
+    cat SLStools.zip.* > SLStools.zip
 
     echo "Descompactando SLStools.zip..."
     unzip -o SLStools.zip -d "$slstools_dir"
 
     echo "Movendo conteúdo para $slstools_dir..."
     if [ -d "$slstools_dir/SLStools" ]; then
-        rm -rf "$slstools_dir/bin" "$slstools_dir/setup.sh" 2>/dev/null || true
+        rm -rf "$slstools_dir/bin" "$slstools_dir/setup.sh" "$slstools_dir/utils" 2>/dev/null || true
+        shopt -s dotglob nullglob
         mv "$slstools_dir/SLStools/"* "$slstools_dir/"
+        shopt -u dotglob nullglob
         rm -rf "$slstools_dir/SLStools"
     fi
 
     echo "Excluindo arquivos zip..."
-    rm -f SLStools.zip SLStools.zip.001 SLStools.zip.002 SLStools.zip.003 SLStools.zip.004
+    rm -f SLStools.zip SLStools.zip.*
 else
     echo "Nenhum arquivo SLStools.zip encontrado. Limpando e atualizando via git..."
     rm -rf "$slstools_dir"
@@ -162,13 +156,11 @@ fi
 echo "Executando setup.sh para instalar SLStools..."
 cd "$slstools_dir"
 chmod +x setup.sh
-./setup.sh install >/dev/null 2>&1
+./setup.sh install >/dev/null 2>&1 || true
 
-# Gerar atalho
 echo "Gerando atalho..."
-/home/shebang/SLStools/scripts/SLStools/bin/shortcut.sh
+"$slstools_dir/bin/shortcut.sh" || true
 
-# Atualizar cache de atalhos e ícones
 echo "Atualizando cache de atalhos e ícones..."
 if command -v update-desktop-database &>/dev/null; then
     update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
