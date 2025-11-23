@@ -2,7 +2,7 @@
 
 set -e
 
-ROOT_DIR="$(pwd)"
+ROOT_DIR="$HOME/SLStools"
 REPO_NAME="SLStools"
 
 green=$(tput setaf 2)
@@ -21,7 +21,7 @@ echo "------------------------------"
 # Remoção SLSsteam
 echo
 echo "Removendo SLSsteam..."
-SLSSTEAM_DIR="$ROOT_DIR/SLSsteam"
+SLSSTEAM_DIR="$ROOT_DIR/scripts/SLSsteam"
 if [ -d "$SLSSTEAM_DIR" ]; then
     cd "$SLSSTEAM_DIR"
     make clean >/dev/null 2>&1 || true
@@ -31,9 +31,10 @@ if [ -d "$SLSSTEAM_DIR" ]; then
     rm -rf "$SLSSTEAM_DIR"
     echo "${green}$check SLSsteam removido com sucesso${reset}"
 else
-    echo "${red}$cross SLSsteam não está instalada${reset}"
+    echo "${red}$cross SLSsteam não está instalado${reset}"
 fi
 
+# Remoção configuração SLSsteam
 echo
 echo "Removendo configuração do SLSsteam..."
 CONFIG_SLSSTEAM="$HOME/.config/SLSsteam"
@@ -44,53 +45,46 @@ else
     echo "${red}$cross Configuração SLSsteam não encontrada${reset}"
 fi
 
-# Remoção ACCELA
-echo
-echo "Removendo ACCELA..."
-ACCELA_DIR="$HOME/.local/share/ACCELA"
-ACCELA_DESKTOP="$HOME/.local/share/applications/accela.desktop"
-ACCELA_ICON="$HOME/.local/share/icons/hicolor/256x256/apps/accela.png"
-
-if [ -d "$ACCELA_DIR" ] || [ -f "$ACCELA_DESKTOP" ]; then
-    rm -rf "$ACCELA_DIR"
-    rm -f "$ACCELA_DESKTOP" "$ACCELA_ICON"
-    if command -v gtk-update-icon-cache &>/dev/null; then
-        gtk-update-icon-cache -f "$HOME/.local/share/icons/hicolor" >/dev/null 2>&1 || true
-    fi
-    if command -v update-desktop-database &>/dev/null; then
-        update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
-    fi
-    echo "${green}$check ACCELA removida com sucesso${reset}"
-else
-    echo "${red}$cross ACCELA não está instalada${reset}"
-fi
-
-# Remoção SLSah
-echo
-echo "Removendo SLSah..."
-SLSAH_DIR="$HOME/steam-schema-generator"
-SLSAH_DESKTOP="$HOME/.local/share/applications/steam-schema-generator.desktop"
-
-if [ -d "$SLSAH_DIR" ] || [ -f "$SLSAH_DESKTOP" ]; then
-    rm -rf "$SLSAH_DIR"
-    rm -f "$SLSAH_DESKTOP"
-    if command -v update-desktop-database &>/dev/null; then
-        update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
-    fi
-    echo "${green}$check SLSah removida com sucesso${reset}"
-else
-    echo "${red}$cross SLSah não está instalada${reset}"
-fi
-
 # Remoção SLScheevo
 echo
 echo "Removendo SLScheevo..."
-SLSCHEEVO_DIR="$ROOT_DIR/SLScheevo"
+SLSCHEEVO_DIR="$ROOT_DIR/conquistas/SLScheevo"
 if [ -d "$SLSCHEEVO_DIR" ]; then
     rm -rf "$SLSCHEEVO_DIR"
     echo "${green}$check SLScheevo removido com sucesso${reset}"
 else
     echo "${red}$cross SLScheevo não está instalado${reset}"
+fi
+
+# Remoção do repositório SLStools
+echo
+echo "Removendo diretório $REPO_NAME..."
+if [ -d "$ROOT_DIR" ]; then
+    rm -rf "$ROOT_DIR"
+    echo "${green}$check Diretório $REPO_NAME removido com sucesso${reset}"
+else
+    echo "${red}$cross Diretório $REPO_NAME não encontrado${reset}"
+fi
+
+# Remoção do atalho SLStools
+echo
+echo "Removendo atalho SLStools..."
+SLSTOOLS_DESKTOP="$HOME/.local/share/applications/SLStools.desktop"
+if [ -f "$SLSTOOLS_DESKTOP" ]; then
+    rm -f "$SLSTOOLS_DESKTOP"
+    echo "${green}$check Atalho SLStools removido com sucesso${reset}"
+else
+    echo "${red}$cross Atalho SLStools não encontrado${reset}"
+fi
+
+# Remoção do diretório SLStools em ~/.local/share
+echo
+echo "Removendo diretório SLStools de ~/.local/share..."
+if [ -d "$HOME/.local/share/SLStools" ]; then
+    rm -rf "$HOME/.local/share/SLStools"
+    echo "${green}$check Diretório SLStools removido com sucesso${reset}"
+else
+    echo "${red}$cross Diretório SLStools não encontrado em ~/.local/share${reset}"
 fi
 
 # Restaurar atalho padrão da Steam
@@ -117,13 +111,16 @@ else
     echo "${red}$cross Steam não encontrada para restaurar atalho${reset}"
 fi
 
-# Remoção repositório
-echo
-echo "Removendo diretório $REPO_NAME..."
-cd ..
-rm -rf "$ROOT_DIR"
-echo "${green}$check Diretório $REPO_NAME removido com sucesso${reset}"
+# Atualizar cache de atalhos e ícones
+echo "Atualizando cache de atalhos e ícones..."
+if command -v update-desktop-database &>/dev/null; then
+    update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
+fi
+if command -v gtk-update-icon-cache &>/dev/null; then
+    gtk-update-icon-cache -f "$HOME/.local/share/icons/hicolor" >/dev/null 2>&1 || true
+fi
 
 # Finalização
 echo
-echo "${green}$check SLSsteam, ACCELA, SLSah e SLScheevo foram removidos com sucesso${reset}"
+echo "${green}$check SLSsteam, SLScheevo e SLStools foram removidos com sucesso${reset}"
+echo "${green}$check Repositório $REPO_NAME foi removido com sucesso${reset}"
