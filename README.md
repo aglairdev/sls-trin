@@ -1,6 +1,6 @@
 ## Updates
 
-Integração direta com SLScheevo e modificação da interface do Accela para SLStools.
+Integração com SLScheevo e modificação da interface do Accela para SLStools.
 
 ## Instalação
 
