@@ -36,7 +36,6 @@ echo "    Instalando SLStools         "
 echo "#------------------------------#"
 echo
 
-echo
 echo "[sudo] Será solicitada a senha para continuar..."
 sudo -v
 
@@ -50,18 +49,14 @@ dependencies=(
     qt6-base-dev qt6-base-dev-tools
 )
 
-echo
 echo "Instalando dependências necessárias..."
 for package in "${dependencies[@]}"; do
     if ! command -v "$package" >/dev/null 2>&1 && ! dpkg -s "$package" >/dev/null 2>&1; then
         if command -v apt >/dev/null 2>&1; then
-            echo "Instalando $package via apt..."
             (sudo apt install -y "$package" >/dev/null 2>&1) & spinner
         elif command -v dnf >/dev/null 2>&1; then
-            echo "Instalando $package via dnf..."
             (sudo dnf install -y "$package" >/dev/null 2>&1) & spinner
         elif command -v pacman >/dev/null 2>&1; then
-            echo "Instalando $package via pacman..."
             (sudo pacman -S --noconfirm "$package" >/dev/null 2>&1) & spinner
         else
             echo "${color_red}$symbol_cross Nenhum gerenciador de pacotes compatível encontrado${color_reset}"
@@ -74,20 +69,59 @@ echo "${color_green}$symbol_check Dependências instaladas com sucesso${color_re
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig"
 
 echo
+echo "Verificando instalação da Steam..."
+
+# Detecta a Steam em vários caminhos possíveis
+steam_binary=""
+if command -v steam >/dev/null 2>&1; then
+    steam_binary="$(command -v steam)"
+elif [ -x "/usr/games/steam" ]; then
+    steam_binary="/usr/games/steam"
+elif which steam >/dev/null 2>&1; then
+    steam_binary="$(which steam)"
+else
+    # tenta buscar com whereis
+    candidate="$(whereis -b steam | awk '{print $2}')"
+    if [ -n "$candidate" ] && [ -x "$candidate" ]; then
+        steam_binary="$candidate"
+    fi
+fi
+
+if [ -z "$steam_binary" ]; then
+    echo "${color_red}$symbol_cross Steam não encontrada no sistema${color_reset}"
+    exit 1
+else
+    echo "${color_green}$symbol_check Steam encontrada em: $steam_binary${color_reset}"
+    desktop_dir="$HOME/.local/share/applications"
+    desktop_file="$desktop_dir/steam.desktop"
+    mkdir -p "$desktop_dir"
+    if [ ! -f "$desktop_file" ]; then
+        cat <<EOF > "$desktop_file"
+[Desktop Entry]
+Name=Steam
+Exec=$steam_binary
+Type=Application
+Icon=steam
+Categories=Game;
+EOF
+        echo "${color_green}$symbol_check Atalho criado em $desktop_file${color_reset}"
+    else
+        echo "${color_green}$symbol_check Atalho já existe em $desktop_file${color_reset}"
+    fi
+fi
+
+echo
 if [ -d "$project_root/.git" ]; then
-    echo "Repositório principal já existe. Atualizando via git pull..."
     cd "$project_root"
     git reset --hard HEAD >/dev/null 2>&1
     git pull --quiet
     echo "${color_green}$symbol_check Repositório principal atualizado${color_reset}"
 else
-    echo "Clonando repositório principal na branch 'conquistas'..."
     git clone --branch conquistas "$repo_url" "$project_root" --quiet
     echo "${color_green}$symbol_check Repositório principal clonado com sucesso${color_reset}"
 fi
 
 echo
-echo "Clonando/atualizando SLSsteam dentro de $scripts_dir..."
 slssteam_dir="$scripts_dir/SLSsteam"
 if [ -d "$slssteam_dir/.git" ]; then
     cd "$slssteam_dir"
@@ -100,7 +134,6 @@ else
 fi
 
 echo
-echo "Instalando SLSsteam..."
 cd "$slssteam_dir"
 make >/dev/null 2>&1
 chmod +x setup.sh
@@ -108,7 +141,6 @@ chmod +x setup.sh
 echo "${color_green}$symbol_check SLSsteam instalado com sucesso${color_reset}"
 
 echo
-echo "Clonando/atualizando SLScheevo dentro de $conquistas_dir..."
 slscheevo_dir="$conquistas_dir/SLScheevo"
 if [ -d "$slscheevo_dir/.git" ]; then
     cd "$slscheevo_dir"
@@ -121,18 +153,11 @@ else
 fi
 
 echo
-echo "Instalando SLStools..."
 slstools_dir="$scripts_dir/SLStools"
-
 if ls "$slstools_dir"/SLStools.zip.* >/dev/null 2>&1; then
-    echo "Unindo partes do SLStools.zip..."
     cd "$slstools_dir"
     cat SLStools.zip.* > SLStools.zip
-
-    echo "Descompactando SLStools.zip..."
     unzip -o SLStools.zip -d "$slstools_dir"
-
-    echo "Movendo conteúdo para $slstools_dir..."
     if [ -d "$slstools_dir/SLStools" ]; then
         rm -rf "$slstools_dir/bin" "$slstools_dir/setup.sh" "$slstools_dir/utils" 2>/dev/null || true
         shopt -s dotglob nullglob
@@ -140,11 +165,8 @@ if ls "$slstools_dir"/SLStools.zip.* >/dev/null 2>&1; then
         shopt -u dotglob nullglob
         rm -rf "$slstools_dir/SLStools"
     fi
-
-    echo "Excluindo arquivos zip..."
     rm -f SLStools.zip SLStools.zip.*
 else
-    echo "Nenhum arquivo SLStools.zip encontrado. Limpando e atualizando via git..."
     rm -rf "$slstools_dir"
     mkdir -p "$slstools_dir"
     cd "$project_root"
@@ -153,15 +175,12 @@ else
     echo "${color_green}$symbol_check SLStools atualizado via git${color_reset}"
 fi
 
-echo "Executando setup.sh para instalar SLStools..."
 cd "$slstools_dir"
 chmod +x setup.sh
 ./setup.sh install >/dev/null 2>&1 || true
 
-echo "Gerando atalho..."
 "$slstools_dir/bin/shortcut.sh" || true
 
-echo "Atualizando cache de atalhos e ícones..."
 if command -v update-desktop-database &>/dev/null; then
     update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
 fi
@@ -170,4 +189,4 @@ if command -v gtk-update-icon-cache &>/dev/null; then
 fi
 
 echo
-echo "${color_green}$symbol_check SLStools foi adicionado com sucesso. ${color_reset}"
+echo "${color_green}$symbol_check SLStools foi adicionado com sucesso.${color_reset}"
