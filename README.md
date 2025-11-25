@@ -2,15 +2,30 @@
 
 Integração com SLScheevo e modificação da interface do Accela para SLStools.
 
+## Requisitos
+
+- `curl`
+- Steam nativa (não compatível com Flatpak ou Snap)
+
+## Distros testadas
+
+| Distro   | Status |
+|----------|:-------: |
+| Kubuntu  |   ✅     |
+| Zorin    |   ✅     |
+
 ## Instalação
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/install.sh | bash
 ```
-> [!WARNING]
-> **Inicie a compra com a Steam fechada**. O script abre a Steam para reconhecer o jogo pelo SLScheevo e, após gerar as conquistas, solicita a reinicialização da Steam. Se a Steam estiver aberta, o script pode não conseguir reconhecer o jogo corretamente e falhar na geração das conquistas.
 
 ## Config
+
+### SLStools
+
+> [!WARNING]
+> **Inicie a compra com a Steam fechada**. O script abre a Steam para reconhecer o jogo pelo SLScheevo e, após gerar as conquistas, solicita a reinicialização da Steam. Se a Steam estiver aberta, o script pode não conseguir reconhecer o jogo corretamente e falhar na geração das conquistas.
 
 ### SLSscheevo
 
