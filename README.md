@@ -1,6 +1,8 @@
 ## Updates
 
-Integração com SLScheevo e modificação da interface do Accela para SLStools.
+- Integração com SLScheevo
+- Modificação da interface do Accela para SLStools
+- Tradução da interface para pt-br 🇧🇷
 
 ## Requisitos
 
@@ -22,6 +24,12 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 
 ## Config
 
+### Depots
+
+- [Ryuu](https://generator.ryuu.lol/)
+- [Luatools](https://discord.com/invite/luatools)
+> luatools — gen-games-here — [appid]
+
 ### SLStools
 
 > [!WARNING]
@@ -32,15 +40,67 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 Abra o SLScheevo pelo menos uma vez para adicionar as credenciais.
 
 <p align="center">
-  <img src="assets/config.png" width="400"/>
+  <img src="assets/slstools-config.png" width="400"/>
 </p>
 
-### SLSsteam
+### Driver recomendado (Nvidia)
+- nvidia-driver-570
 
-> Botão de "Jogar" com status "COMPRAR".
+## Backup saves/conquistas
 
-Após comprar um jogo, um documento de configuração é gerado. Modifique um parâmetro neste arquivo.
+```bash
+cd ~/SLStools/scripts/
+sudo chmod +x backup.sh
+./backup.sh
+```
 
-`~/.config/SLSsteam/config.yaml`
+## Desinstalação
 
-PlayNotOwnedGames: yes
+```bash
+cd ~/SLStools/scripts
+sudo chmod +x uninstall.sh
+./uninstall.sh
+```
+
+## Fix
+
+<p align="center">
+  <img src="assets/fix-comprar.png" width="200"/>
+</p>
+
+`~/.config/SLSsteam/config.yaml` — PlayNotOwnedGames: yes
+
+<p align="center">
+  <img src="assets/fix-disponivel-para.png" width="200"/>
+</p>
+
+Botão direito no jogo — Propriedades — Compatibilidade — Forçar uso de ferramenta de compatibilidade do Steam Play específica — Proton Experimental
+
+<p align="center">
+  <img src="assets/fix-6:0000065432.png" width="200"/>
+</p>
+
+`~/SLStools/scripts/Steamless` — Descompacta o arquivo — Faz uma cópia do `.exe` do jogo e cola na raiz do Steamless — Executa o `Steamless.exe` com PortProton, seleciona o atalho e gera a versão sem DRM — Substitui essa versão no local do jogo e renomeia conforme necessário
+
+> [!WARNING]
+> Steamless remove DRM SteamStub e variantes. Portanto DRM entre outros não irão funcionar.
+
+- [Tutorial em vídeo](https://www.youtube.com/watch?v=fOxr_FuCRdA)
+- [PortProton](https://flathub.org/pt-BR/apps/ru.linux_gaming.PortProton)
+- [Atalhos corrigidos](/scripts/Steamless/fix/)
+
+### Jogos que dependem de launcher
+
+Baixar o fix e substituir os arquivos do jogo
+
+- [Tutorial em vídeo](https://www.youtube.com/watch?v=a2dd0BnXN4s)
+- [Fixes - Ryuu](https://generator.ryuu.lol/fixes)
+
+## Créditos
+
+- [SLSsteam](https://github.com/AceSLS/SLSsteam)
+- [DepotDownloaderMod](https://github.com/SteamAutoCracks/DepotDownloaderMod)
+- [Conheci o Accela neste canal, mas seu real autor é desconhecido](https://www.youtube.com/watch?v=jQUEtr200SU)
+- [SLScheevo](https://github.com/xamionex/SLScheevo)
+- [SLSah](https://github.com/niwia/SLSah)
+- [Steamless](https://github.com/atom0s/Steamless)
