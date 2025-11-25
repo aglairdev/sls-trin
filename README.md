@@ -33,9 +33,9 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 ### SLStools
 
 > [!WARNING]
-> **Inicie a compra com a Steam fechada**. O script abre a Steam para reconhecer o jogo pelo SLScheevo e, após gerar as conquistas, solicita a reinicialização da Steam. Se a Steam estiver aberta, o script pode não conseguir reconhecer o jogo corretamente e falhar na geração das conquistas.
+> **Feche a Steam antes de iniciar a compra.**. O script abre a Steam para reconhecer o jogo pelo SLScheevo e, após gerar as conquistas, solicita a reinicialização da Steam. Se a Steam estiver aberta, o script pode não conseguir reconhecer o jogo corretamente e falhar na geração das conquistas.
 
-### SLSscheevo
+### SLScheevo
 
 Abra o SLScheevo pelo menos uma vez para adicionar as credenciais.
 
@@ -74,7 +74,7 @@ sudo chmod +x uninstall.sh
   <img src="assets/fix-disponivel-para.png" width="200"/>
 </p>
 
-Botão direito no jogo — Propriedades — Compatibilidade — Forçar uso de ferramenta de compatibilidade do Steam Play específica — Proton Experimental
+Clique com o botão direito do mouse no jogo — Propriedades — Compatibilidade — Forçar uso de ferramenta de compatibilidade do Steam Play específica — Proton Experimental
 
 <p align="center">
   <img src="assets/fix-6:0000065432.png" width="200"/>
@@ -83,7 +83,7 @@ Botão direito no jogo — Propriedades — Compatibilidade — Forçar uso de f
 `~/SLStools/scripts/Steamless` — Descompacta o arquivo — Faz uma cópia do `.exe` do jogo e cola na raiz do Steamless — Executa o `Steamless.exe` com PortProton, seleciona o atalho e gera a versão sem DRM — Substitui essa versão no local do jogo e renomeia conforme necessário
 
 > [!WARNING]
-> Steamless remove DRM SteamStub e variantes. Portanto Denuvo entre outros não irão funcionar.
+> Steamless remove DRM, SteamStub e variantes. Portanto, Denuvo, entre outros, não irão funcionar.
 
 - [Tutorial em vídeo](https://www.youtube.com/watch?v=fOxr_FuCRdA)
 - [PortProton](https://flathub.org/pt-BR/apps/ru.linux_gaming.PortProton)
