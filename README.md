@@ -25,6 +25,10 @@
 curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/main/install.sh | bash
 ```
 
+<p align="center">
+  <img src="assets/demo.gif" width="400"/>
+</p>
+
 - [Tutorial com SLScheevo](https://www.youtube.com/watch?v=L3NCe-Yk0vs)
 - [Tutorial com SLSah](https://www.youtube.com/watch?v=MH8kYaEtA6U)
 
