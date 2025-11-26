@@ -5,6 +5,8 @@ set -e
 project_root="$(pwd)"
 main_repo="SLStools"
 repo_url="https://github.com/aglairdev/$main_repo.git"
+scripts_dir="$project_root/$main_repo/scripts"  # Caminho correto para scripts dentro de SLStools
+conquistas_dir="$project_root/$main_repo/conquistas"
 
 color_green=$(tput setaf 2)
 color_red=$(tput setaf 1)
@@ -32,7 +34,7 @@ echo
 echo "------------------------------------------------"
 echo "         SLStools $symbol_divider         "
 echo "------------------------------------------------"
-echo "  Instalando SLSsteam, ACCELA, SLSah e SLScheevo"
+echo "  Instalando SLSsteam, ACCELA, SLSah, SLScheevo e Steamless"
 echo "------------------------------------------------"
 
 # Password
@@ -121,10 +123,14 @@ else
     git clone "$repo_url" "$project_root/$main_repo" --quiet
 fi
 
+# Garantir que a pasta scripts exista dentro de SLStools
+echo "Verificando/Criação do diretório de scripts dentro de SLStools..."
+mkdir -p "$scripts_dir"  # Garantir que a pasta "scripts" esteja dentro de SLStools, não fora
+
 # Clonagem do SLSsteam
 echo
-echo "Clonando/atualizando SLSsteam dentro de $main_repo..."
-slssteam_dir="$project_root/$main_repo/SLSsteam"
+echo "Clonando/atualizando SLSsteam dentro de $main_repo/scripts..."
+slssteam_dir="$scripts_dir/SLSsteam"
 if [ -d "$slssteam_dir" ]; then
     cd "$slssteam_dir"
     git reset --hard HEAD >/dev/null 2>&1
@@ -133,6 +139,7 @@ if [ -d "$slssteam_dir" ]; then
     echo "${color_green}$symbol_check SLSsteam atualizado${color_reset}"
 else
     git clone "https://github.com/AceSLS/SLSsteam.git" "$slssteam_dir" --quiet
+    echo "${color_green}$symbol_check SLSsteam clonado${color_reset}"
 fi
 
 # Instalação SLSsteam
@@ -150,14 +157,14 @@ cd "$project_root/$main_repo"
 echo
 echo "Instalando ACCELA..."
 
-if [ ! -f "$project_root/$main_repo/Accela-M.zip" ]; then
-    echo "${color_red}$symbol_cross Arquivo Accela-M.zip não encontrado em $main_repo!${color_reset}"
+if [ ! -f "$scripts_dir/Accela-M.zip" ]; then
+    echo "${color_red}$symbol_cross Arquivo Accela-M.zip não encontrado em $scripts_dir!${color_reset}"
     echo "Coloque o arquivo na pasta antes de continuar."
     exit 1
 fi
 
-unzip -o "$project_root/$main_repo/Accela-M.zip" -d "$project_root/$main_repo" >/dev/null 2>&1
-cd "$project_root/$main_repo/Accela-M"
+unzip -o "$scripts_dir/Accela-M.zip" -d "$scripts_dir" >/dev/null 2>&1
+cd "$scripts_dir/Accela-M"
 chmod +x ./ACCELAINSTALL
 ./ACCELAINSTALL || {
     echo "${color_red}$symbol_cross Falha na instalação do ACCELA${color_reset}"
@@ -177,8 +184,8 @@ echo "SLSah já foi clonado do repositório SLStools."
 
 # Clonando SLScheevo
 echo
-echo "Clonando SLScheevo dentro de $main_repo..."
-slscheevo_dir="$project_root/$main_repo/SLScheevo"
+echo "Clonando SLScheevo dentro de $main_repo/conquistas..."
+slscheevo_dir="$conquistas_dir/SLScheevo"
 if [ -d "$slscheevo_dir" ]; then
     cd "$slscheevo_dir"
     git reset --hard HEAD >/dev/null 2>&1
@@ -190,6 +197,22 @@ else
     echo "${color_green}$symbol_check SLScheevo clonado com sucesso${color_reset}"
 fi
 
+# Baixando Steamless
+echo
+echo "Baixando Steamless..."
+
+steamless_dir="$scripts_dir/Steamless"
+steamless_url="https://github.com/atom0s/Steamless/releases/download/v3.1.0.5/Steamless.v3.1.0.5.-.by.atom0s.zip"
+mkdir -p "$steamless_dir"
+
+if [ ! -f "$steamless_dir/Steamless.v3.1.0.5.-.by.atom0s.zip" ]; then
+    echo "Baixando Steamless v3.1.0.5..."
+    (wget -q "$steamless_url" -O "$steamless_dir/Steamless.v3.1.0.5.-.by.atom0s.zip") & spinner
+    echo "${color_green}$symbol_check Steamless baixado${color_reset}"
+else
+    echo "${color_green}$symbol_check Steamless já está atualizado${color_reset}"
+fi
+
 # Finalização
 echo
-echo "${color_green}$symbol_check SLSsteam, ACCELA, SLSah e SLScheevo foram adicionados com sucesso. ${color_reset}"
+echo "${color_green}$symbol_check SLSsteam, ACCELA, SLSah, SLScheevo e Steamless foram adicionados com sucesso. ${color_reset}"
