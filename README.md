@@ -24,6 +24,10 @@
 curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/install.sh | bash
 ```
 
+<p align="center">
+  <img src="assets/demo.gif" width="400"/>
+</p>
+
 ## Config
 
 ### Depots
