@@ -1,3 +1,5 @@
+[![Branch: Accela original](https://img.shields.io/badge/Branch-Accela%20original-blue)](https://github.com/aglairdev/SLStools)
+
 ## Updates
 
 - Integração com SLScheevo
