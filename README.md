@@ -38,10 +38,24 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 - [Luatools](https://discord.com/invite/luatools)
 > luatools — gen-games-here — [appid]
 
-### SLStools
+### SLSsteam
 
 > [!WARNING]
-> **Feche a Steam antes de iniciar a compra.**. O script abre a Steam para reconhecer o jogo pelo SLScheevo e, após gerar as conquistas, solicita a reinicialização da Steam. Se a Steam estiver aberta, o script pode não conseguir reconhecer o jogo corretamente e falhar na geração das conquistas.
+> Após a instalação completa do script, é necessário abrir a Steam para gerar o caminho `~/.local/share/SLSsteam/`.  
+> Caso isso não seja feito, o SLScheevo não vai conseguir reconhecer a instalação da Steam.  
+>
+> Inicie a Steam pelo atalho modificado no menu iniciar, pois este tem a variável de ambiente para iniciar o SLSsteam em conjunto.  
+> O atalho gerado pelo apt na área de trabalho **não irá funcionar**.  
+>
+> **Feche a Steam antes de iniciar a compra.**  
+> O script abre a Steam para reconhecer o jogo pelo SLScheevo e, após gerar as conquistas, solicita a reinicialização da Steam.  
+> Se a Steam estiver aberta, o script pode não conseguir reconhecer o jogo corretamente e falhar na geração das conquistas.  
+>
+> Ao iniciar a Steam, deve aparecer esta notificação:
+>
+> <p align="center">
+>   <img src="assets/slstools-start.png" width="400"/>
+> </p>
 
 ### SLScheevo
 
