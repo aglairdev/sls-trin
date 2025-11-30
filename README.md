@@ -38,7 +38,13 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 - [Luatools](https://discord.com/invite/luatools)
 > luatools — gen-games-here — [appid]
 
-### SLSsteam
+**Linux:**
+> O executável e o launcher (se houver) precisam ter permissão de execução.
+
+**Windows:**
+> Ative o Proton (recomenda-se a versão experimental).
+
+### SLStools
 
 > [!WARNING]
 > Após a instalação completa do script, é necessário abrir a Steam para gerar o caminho `~/.local/share/SLSsteam/`.  
