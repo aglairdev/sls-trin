@@ -81,8 +81,8 @@ sudo chmod +x uninstall.sh
 
 `~/.config/SLSsteam/config.yaml` — PlayNotOwnedGames: yes
 
-> [!WARNING]
-> O script atual já faz isso automaticamente.
+> [!TIP]
+> O script atual já faz isso automaticamente
 
 <p align="center">
   <img src="assets/fix-disponivel-para.png" width="200"/>
