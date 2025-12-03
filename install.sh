@@ -9,10 +9,12 @@ scripts_dir="$project_root/scripts"
 
 color_green=$(tput setaf 2)
 color_red=$(tput setaf 1)
+color_yellow=$(tput setaf 3)
 color_reset=$(tput sgr0)
 
 symbol_check="✓"
 symbol_cross="𐄂"
+divider="⚒"
 
 spinner() {
     local pid=$!
@@ -28,12 +30,9 @@ spinner() {
 }
 
 echo
-echo "#------------------------------#"
-echo "          SLStools             "
-echo "|------------------------------|"
-echo "       Instalando SLStools     "
-echo "#------------------------------#"
-echo
+echo "|------------------------------------|"
+echo "       INSTALAÇÃO SLStools ${divider}    "
+echo "|------------------------------------|"
 
 echo "[sudo] Será solicitada a senha para continuar..."
 sudo -v
@@ -45,13 +44,13 @@ dependencies=(
     libxcb-cursor0 libxcb-xinerama0 libxcb-icccm4 libxcb-image0
     libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-shape0
     libxcb-xfixes0 libxkbcommon-x11-0 libglu1-mesa
-    qt6-base-dev qt6-base-dev-tools
+    qt6-base-dev qt6-base-dev-tools libglib2.0-bin
 )
 
 echo "Instalando dependências..."
 for package in "${dependencies[@]}"; do
     echo "Instalando: $package"
-    if ! command -v "$package" >/dev/null 2>&1 && ! dpkg -s "$package" >/dev/null 2>&1; then
+    if ! dpkg -s "$package" >/dev/null 2>&1 && ! command -v "$package" >/dev/null 2>&1; then
         if command -v apt >/dev/null 2>&1; then
             (sudo apt install -y "$package" >/dev/null 2>&1) & spinner
         elif command -v dnf >/dev/null 2>&1; then
@@ -89,24 +88,7 @@ if [ -z "$steam_binary" ]; then
     echo "${color_red}$symbol_cross Steam não encontrada${color_reset}"
     exit 1
 else
-    echo "Criando atalho da Steam..."
     echo "${color_green}$symbol_check Steam encontrada: $steam_binary${color_reset}"
-    desktop_dir="$HOME/.local/share/applications"
-    desktop_file="$desktop_dir/steam.desktop"
-    mkdir -p "$desktop_dir"
-    if [ ! -f "$desktop_file" ]; then
-        cat <<EOF > "$desktop_file"
-[Desktop Entry]
-Name=Steam
-Exec=$steam_binary
-Type=Application
-Icon=steam
-Categories=Game;
-EOF
-        echo "${color_green}$symbol_check Atalho criado${color_reset}"
-    else
-        echo "${color_green}$symbol_check Atalho já existe${color_reset}"
-    fi
 fi
 
 echo
@@ -134,6 +116,7 @@ if [ -d "$slssteam_dir/.git" ]; then
     echo "${color_green}$symbol_check SLSsteam atualizado${color_reset}"
 else
     echo "Clonando SLSsteam..."
+    mkdir -p "$scripts_dir"
     git clone "https://github.com/AceSLS/SLSsteam.git" "$slssteam_dir" --quiet
     echo "${color_green}$symbol_check SLSsteam clonado${color_reset}"
 fi
@@ -141,9 +124,11 @@ fi
 echo
 echo "Compilando e instalando SLSsteam..."
 cd "$slssteam_dir"
-make >/dev/null 2>&1
+make >/dev/null 2>&1 || true
 chmod +x setup.sh
-./setup.sh install >/dev/null 2>&1 || true
+set +e
+./setup.sh install >/dev/null 2>&1
+set -e
 echo "${color_green}$symbol_check SLSsteam instalado${color_reset}"
 
 echo
@@ -157,15 +142,93 @@ if [ -d "$slscheevo_dir/.git" ]; then
     echo "${color_green}$symbol_check SLScheevo atualizado${color_reset}"
 else
     echo "Clonando SLScheevo..."
+    mkdir -p "$conquistas_dir"
     git clone "https://github.com/xamionex/SLScheevo.git" "$slscheevo_dir" --quiet
     echo "${color_green}$symbol_check SLScheevo clonado${color_reset}"
+fi
+
+desktop_app_dir="$HOME/.local/share/applications"
+mkdir -p "$desktop_app_dir"
+
+desktop_file="$desktop_app_dir/steam.desktop"
+slssteam_so="$HOME/.local/share/SLSsteam/SLSsteam.so"
+ld_audit_exec="env LD_AUDIT=\"$slssteam_so\""
+
+cat > "$desktop_file" <<EOF
+[Desktop Entry]
+Name=Steam
+Comment=Application for managing and playing games on Steam
+Exec=$ld_audit_exec $steam_binary %U
+Icon=steam
+Terminal=false
+Type=Application
+Categories=Network;FileTransfer;Game;
+MimeType=x-scheme-handler/steam;x-scheme-handler/steamlink;
+Actions=Store;Community;Library;Servers;Screenshots;News;Settings;BigPicture;Friends;
+PrefersNonDefaultGPU=true
+X-KDE-RunOnDiscreteGpu=true
+EOF
+
+chmod 644 "$desktop_file"
+if command -v gio >/dev/null 2>&1; then
+    gio set "$desktop_file" "metadata::trusted" true >/dev/null 2>&1 || true
+fi
+echo "${color_green}$symbol_check Atalho criado/atualizado em $desktop_app_dir${color_reset}"
+
+find_desktop_dir() {
+    local d
+    if command -v xdg-user-dir >/dev/null 2>&1; then
+        d="$(xdg-user-dir DESKTOP 2>/dev/null || true)"
+        if [ -n "$d" ] && [ -d "$d" ]; then
+            echo "$d"
+            return
+        fi
+    fi
+    local candidates=("Desktop" "desktop" "Área de trabalho" "Área de Trabalho")
+    for name in "${candidates[@]}"; do
+        if [ -d "$HOME/$name" ]; then
+            echo "$HOME/$name"
+            return
+        fi
+    done
+    for d in "$HOME"/*; do
+        if [ -d "$d" ]; then
+            local base="$(basename "$d")"
+            local lower="$(echo "$base" | tr '[:upper:]' '[:lower:]' | iconv -f utf8 -t ascii//TRANSLIT 2>/dev/null || true)"
+            if [[ "$lower" == *desktop* ]] || ([[ "$lower" == *area* ]] && [[ "$lower" == *trabalho* ]]); then
+                echo "$d"
+                return
+            fi
+        fi
+    done
+    echo "$HOME/Desktop"
+}
+
+DESKTOP_DIR="$(find_desktop_dir)"
+mkdir -p "$DESKTOP_DIR"
+
+desktop_shortcut="$DESKTOP_DIR/steam.desktop"
+
+cp "$desktop_file" "$desktop_shortcut"
+chmod 644 "$desktop_shortcut"
+echo "${color_green}$symbol_check Atalho na área de trabalho criado/atualizado${color_reset}"
+
+if command -v gio >/dev/null 2>&1; then
+    gio set "$desktop_shortcut" "metadata::trusted" true >/dev/null 2>&1 || true
+    chmod a+x "$desktop_shortcut" >/dev/null 2>&1 || true
+    echo "${color_green}$symbol_check Atalho marcado como confiável e permissões ajustadas${color_reset}"
+elif command -v gvfs-set-attribute >/dev/null 2>&1; then
+    gvfs-set-attribute -t boolean "$desktop_shortcut" metadata::trusted true >/dev/null 2>&1 || true
+    chmod a+x "$desktop_shortcut" >/dev/null 2>&1 || true
+    echo "${color_green}$symbol_check Atalho marcado como confiável (gvfs) e permissões ajustadas${color_reset}"
+else
+    chmod a+x "$desktop_shortcut" >/dev/null 2>&1 || true
+    echo "${color_red}$symbol_cross 'gio' não encontrado; marque o atalho como confiável manualmente se necessário${color_reset}"
 fi
 
 echo
 echo "# Início do processo de descompactação #"
 
-echo
-echo "Processando SLStools .zip..."
 slstools_dir="$scripts_dir/SLStools"
 
 if ls "$slstools_dir"/SLStools.zip.* >/dev/null 2>&1; then
@@ -199,7 +262,9 @@ echo
 echo "Instalando SLStools..."
 cd "$slstools_dir"
 chmod +x setup.sh
-./setup.sh install >/dev/null 2>&1 || true
+set +e
+./setup.sh install >/dev/null 2>&1
+set -e
 echo "${color_green}$symbol_check SLStools instalado${color_reset}"
 
 echo
@@ -233,3 +298,134 @@ fi
 
 echo
 echo "${color_green}$symbol_check Todas as ferramentas necessárias foram adicionadas${color_reset}"
+
+echo
+echo "${color_yellow}Iniciando a Steam para gerar ~/.config/SLSsteam${color_reset}"
+steam_log="/tmp/steam_start.log.$$"
+set +e
+desktop_id="$(basename "$desktop_file" .desktop)"
+if command -v gtk-launch >/dev/null 2>&1; then
+    gtk-launch "$desktop_id" >/dev/null 2>&1 &
+elif command -v gio >/dev/null 2>&1; then
+    gio open "$desktop_file" >/dev/null 2>&1 &
+elif command -v xdg-open >/dev/null 2>&1; then
+    xdg-open "$desktop_file" >/dev/null 2>&1 &
+else
+    env LD_AUDIT="$slssteam_so" nohup "$steam_binary" >"$steam_log" 2>&1 &
+fi
+sleep 1
+max_wait=60
+elapsed=0
+success=0
+while [ $elapsed -lt $max_wait ]; do
+    if [ -d "$HOME/.config/SLSsteam" ]; then
+        success=1
+        break
+    fi
+    sleep 1
+    elapsed=$((elapsed+1))
+done
+
+if [ $success -eq 1 ]; then
+    echo "${color_green}$symbol_check Steam iniciada e arquivos ~/.config/SLSsteam detectados${color_reset}"
+else
+    echo "${color_red}$symbol_cross Não foi possível detectar ~/.config/SLSsteam após ${max_wait}s${color_reset}"
+    if [ -f "$steam_log" ]; then
+        echo "Últimas linhas do log:"
+        tail -n 30 "$steam_log" 2>/dev/null || true
+    fi
+    echo "${color_red}Verifique se a sessão gráfica está ativa e se o desktop entry $desktop_file está sendo usado para iniciar a Steam.${color_reset}"
+    exit 1
+fi
+set -e
+
+echo
+echo "${color_yellow}Fechando Steam...${color_reset}"
+if command -v steam >/dev/null 2>&1; then
+    steam -shutdown >/dev/null 2>&1 || true
+fi
+
+shutdown_wait=30
+sw=0
+while pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1 && [ $sw -lt $shutdown_wait ]; do
+    sleep 1
+    sw=$((sw+1))
+done
+
+if pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
+    pkill -15 -u "$USER" -f steam >/dev/null 2>&1 || true
+    sleep 2
+fi
+
+if pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
+    pkill -9 -u "$USER" -f steam >/dev/null 2>&1 || true
+fi
+
+if pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
+    echo "${color_red}$symbol_cross Não foi possível encerrar todos os processos do Steam${color_reset}"
+    exit 1
+else
+    echo "${color_green}$symbol_check Steam encerrada com sucesso${color_reset}"
+fi
+
+slssteam_config_dir="$HOME/.config/SLSsteam"
+config_file="$slssteam_config_dir/config.yaml"
+
+echo
+echo "${color_yellow}Editando $config_file ${color_reset}"
+if [ -f "$config_file" ]; then
+    cp "$config_file" "$config_file.bak.$(date +%s)" 2>/dev/null || true
+    if grep -qE '^[[:space:]]*PlayNotOwnedGames:' "$config_file"; then
+        sed -i -E 's/^[[:space:]]*PlayNotOwnedGames:[[:space:]]*(no|false|0)/PlayNotOwnedGames: yes/I' "$config_file"
+        sed -i -E 's/^[[:space:]]*PlayNotOwnedGames:[[:space:]]*(yes|true|1)/PlayNotOwnedGames: yes/I' "$config_file"
+    else
+        echo "PlayNotOwnedGames: yes" >> "$config_file"
+    fi
+else
+    mkdir -p "$slssteam_config_dir"
+    echo "PlayNotOwnedGames: yes" > "$config_file"
+fi
+
+if grep -qE '^[[:space:]]*PlayNotOwnedGames:[[:space:]]*yes' "$config_file"; then
+    echo "${color_green}$symbol_check Parâmetro atualizado para PlayNotOwnedGames: yes${color_reset}"
+else
+    echo "${color_red}$symbol_cross Falha ao atualizar $config_file${color_reset}"
+    exit 1
+fi
+
+echo
+echo "${color_yellow}Reabrindo Steam: $desktop_file ${color_reset}"
+if [ -f "$desktop_file" ]; then
+    desktop_id="$(basename "$desktop_file" .desktop)"
+    if command -v gtk-launch >/dev/null 2>&1; then
+        gtk-launch "$desktop_id" >/dev/null 2>&1 &
+    elif command -v gio >/dev/null 2>&1; then
+        gio open "$desktop_file" >/dev/null 2>&1 &
+    elif command -v xdg-open >/dev/null 2>&1; then
+        xdg-open "$desktop_file" >/dev/null 2>&1 &
+    else
+        env LD_AUDIT="$slssteam_so" nohup "$steam_binary" >/dev/null 2>&1 &
+    fi
+else
+    env LD_AUDIT="$slssteam_so" nohup "$steam_binary" >/dev/null 2>&1 &
+fi
+
+echo "${color_yellow}Aguardando Steam iniciar...${color_reset}"
+max_wait=60
+elapsed=0
+while [ $elapsed -lt $max_wait ]; do
+    if pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
+        echo "${color_green}$symbol_check Steam em execução${color_reset}"
+        break
+    fi
+    sleep 1
+    elapsed=$((elapsed+1))
+done
+
+if ! pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
+    echo "${color_red}$symbol_cross Falha ao iniciar Steam dentro de ${max_wait}s${color_reset}"
+    exit 1
+fi
+
+echo "${color_green}$symbol_check Processo concluído com sucesso${color_reset}"
+
