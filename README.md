@@ -4,12 +4,14 @@
 
 - Integração com SLScheevo
 - Modificação da interface do Accela para SLStools
-- Tradução da interface para pt-br 🇧🇷
+- Tradução da interface para pt-BR 🇧🇷
+- `PlayNotOwnedGames: yes` setado por padrão
+- Atalho na área de trabalho configurado com a variável de ambiente do SLSsteam para evitar erros de inicialização por atalho gerado via apt
 
 ## Requisitos
 
 - `curl`
-- Steam nativa (não compatível com Flatpak ou Snap)
+- Steam nativa (**não** compatível com Flatpak ou Snap)
 
 ## Distros testadas
 
@@ -39,29 +41,10 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 > luatools — gen-games-here — [appid]
 
 **Linux:**
-> O executável e o launcher (se houver) precisam ter permissão de execução.
+> O executável e o launcher (se houver) precisam de permissão de execução manual
 
 **Windows:**
-> Ative o Proton (recomenda-se a versão experimental).
-
-### SLStools
-
-> [!WARNING]
-> Após a instalação completa do script, é necessário abrir a Steam para gerar o caminho `~/.local/share/SLSsteam/`.  
-> Caso isso não seja feito, o SLScheevo não vai conseguir reconhecer a instalação da Steam.  
->
-> Inicie a Steam pelo atalho modificado no menu iniciar, pois este tem a variável de ambiente para iniciar o SLSsteam em conjunto.  
-> O atalho gerado pelo apt na área de trabalho **não irá funcionar**.  
->
-> **Feche a Steam antes de iniciar a compra.**  
-> O script abre a Steam para reconhecer o jogo pelo SLScheevo e, após gerar as conquistas, solicita a reinicialização da Steam.  
-> Se a Steam estiver aberta, o script pode não conseguir reconhecer o jogo corretamente e falhar na geração das conquistas.  
->
-> Ao iniciar a Steam, deve aparecer esta notificação:
->
-> <p align="center">
->   <img src="assets/slstools-start.png" width="400"/>
-> </p>
+> Ative o Proton (recomenda-se a versão experimental)
 
 ### SLScheevo
 
@@ -97,6 +80,9 @@ sudo chmod +x uninstall.sh
 </p>
 
 `~/.config/SLSsteam/config.yaml` — PlayNotOwnedGames: yes
+
+> [!WARNING]
+> O script atual já faz isso automaticamente.
 
 <p align="center">
   <img src="assets/fix-disponivel-para.png" width="200"/>
