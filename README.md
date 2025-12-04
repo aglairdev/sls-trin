@@ -57,13 +57,13 @@ Abra o SLScheevo pelo menos uma vez para adicionar as credenciais.
 ### Driver recomendado (Nvidia)
 - nvidia-driver-570
 
-## Backup saves/conquistas
+## Backup de saves
 
 ```bash
-cd ~/SLStools/scripts/
-sudo chmod +x backup.sh
-./backup.sh
+cd ~/SLStools/scripts/ludusavi
 ```
+- Descompacte
+- Inicie o `ludosavi`
 
 ## Desinstalação
 
@@ -112,9 +112,15 @@ Baixar o fix e substituir os arquivos do jogo
 
 ## Créditos
 
+<p style="display: flex; align-items: center; gap: 8px;">
+  <img src="assets/credits.svg" alt="Credits Icon" width="20" height="20" />
+  <span>Meus sinceros agradecimentos a estes incríveis projetos:</span><img src="assets/credits.svg" alt="Credits Icon" width="20" height="20" />
+</p>
+
 - [SLSsteam](https://github.com/AceSLS/SLSsteam)
 - [DepotDownloaderMod](https://github.com/SteamAutoCracks/DepotDownloaderMod)
-- [Conheci o Accela neste canal, mas seu real autor é desconhecido](https://www.youtube.com/watch?v=jQUEtr200SU)
+- [Conheci o Accela neste canal](https://www.youtube.com/watch?v=jQUEtr200SU)
 - [SLScheevo](https://github.com/xamionex/SLScheevo)
 - [SLSah](https://github.com/niwia/SLSah)
 - [Steamless](https://github.com/atom0s/Steamless)
+- [ludusavi](https://github.com/mtkennerly/ludusavi)
