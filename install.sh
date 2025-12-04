@@ -147,6 +147,22 @@ else
     echo "${color_green}$symbol_check SLScheevo clonado${color_reset}"
 fi
 
+echo
+echo "Baixando Ludusavi..."
+ludusavi_dir="$scripts_dir/ludusavi"
+ludusavi_url="https://github.com/mtkennerly/ludusavi/releases/latest/download/ludusavi-v0.30.0-linux.tar.gz"
+
+mkdir -p "$ludusavi_dir"
+cd "$ludusavi_dir"
+
+if [ ! -f "ludusavi-v0.30.0-linux.tar.gz" ]; then
+    echo "Baixando Ludusavi v0.30.0..."
+    (wget -q "$ludusavi_url" -O "ludusavi-v0.30.0-linux.tar.gz") & spinner
+    echo "${color_green}$symbol_check Ludusavi baixado${color_reset}"
+else
+    echo "${color_green}$symbol_check Ludusavi já está atualizado${color_reset}"
+fi
+
 desktop_app_dir="$HOME/.local/share/applications"
 mkdir -p "$desktop_app_dir"
 
@@ -381,51 +397,12 @@ if [ -f "$config_file" ]; then
     else
         echo "PlayNotOwnedGames: yes" >> "$config_file"
     fi
+    echo "${color_green}$symbol_check $config_file editado com sucesso${color_reset}"
 else
-    mkdir -p "$slssteam_config_dir"
-    echo "PlayNotOwnedGames: yes" > "$config_file"
-fi
-
-if grep -qE '^[[:space:]]*PlayNotOwnedGames:[[:space:]]*yes' "$config_file"; then
-    echo "${color_green}$symbol_check Parâmetro atualizado para PlayNotOwnedGames: yes${color_reset}"
-else
-    echo "${color_red}$symbol_cross Falha ao atualizar $config_file${color_reset}"
+    echo "${color_red}$symbol_cross $config_file não encontrado${color_reset}"
     exit 1
 fi
 
 echo
-echo "${color_yellow}Reabrindo Steam: $desktop_file ${color_reset}"
-if [ -f "$desktop_file" ]; then
-    desktop_id="$(basename "$desktop_file" .desktop)"
-    if command -v gtk-launch >/dev/null 2>&1; then
-        gtk-launch "$desktop_id" >/dev/null 2>&1 &
-    elif command -v gio >/dev/null 2>&1; then
-        gio open "$desktop_file" >/dev/null 2>&1 &
-    elif command -v xdg-open >/dev/null 2>&1; then
-        xdg-open "$desktop_file" >/dev/null 2>&1 &
-    else
-        env LD_AUDIT="$slssteam_so" nohup "$steam_binary" >/dev/null 2>&1 &
-    fi
-else
-    env LD_AUDIT="$slssteam_so" nohup "$steam_binary" >/dev/null 2>&1 &
-fi
-
-echo "${color_yellow}Aguardando Steam iniciar...${color_reset}"
-max_wait=60
-elapsed=0
-while [ $elapsed -lt $max_wait ]; do
-    if pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
-        echo "${color_green}$symbol_check Steam em execução${color_reset}"
-        break
-    fi
-    sleep 1
-    elapsed=$((elapsed+1))
-done
-
-if ! pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
-    echo "${color_red}$symbol_cross Falha ao iniciar Steam dentro de ${max_wait}s${color_reset}"
-    exit 1
-fi
-
-echo "${color_green}$symbol_check Processo concluído com sucesso${color_reset}"
+echo "Instalação completa!"
 
