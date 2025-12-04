@@ -65,6 +65,14 @@ cd ~/SLStools/scripts/ludusavi
 - Descompacte
 - Inicie o `ludosavi`
 
+## Backup de conquistas
+
+```bash
+cd ~/SLStools/scripts
+sudo chmod +x backup-conquistas-steam.sh
+./backup-conquistas-steam.sh
+```
+
 ## Desinstalação
 
 ```bash
