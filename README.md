@@ -114,7 +114,8 @@ Baixar o fix e substituir os arquivos do jogo
 
 <p style="display: flex; align-items: center; gap: 8px;">
   <img src="assets/credits.svg" alt="Credits Icon" width="20" height="20" />
-  <span>Meus sinceros agradecimentos a estes incríveis projetos:</span><img src="assets/credits.svg" alt="Credits Icon" width="20" height="20" />
+  <span>Meus sinceros agradecimentos a estes incríveis projetos: </span>
+  <img src="assets/credits.svg" alt="Credits Icon" width="20" height="20" />
 </p>
 
 - [SLSsteam](https://github.com/AceSLS/SLSsteam)
