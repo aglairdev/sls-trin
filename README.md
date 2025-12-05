@@ -31,6 +31,7 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
   <img src="assets/demo.png" width="400" style="display: inline-block; margin-right: 20px;"/>
   <img src="assets/demo2.png" width="400" style="display: inline-block;"/>
 </p>
+
 - [Tutorial em vídeo](https://www.youtube.com/watch?v=fOD65CS8aL4)
 
 ## Config
@@ -42,10 +43,10 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 > luatools — gen-games-here — [appid]
 
 **Linux:**
-> O executável e o launcher (se houver) precisam de permissão de execução manual
+- O executável e o launcher (se houver) precisam de permissão de execução manual
 
 **Windows:**
-> Ative o Proton (recomenda-se a versão experimental)
+- Ative o Proton (recomenda-se a versão experimental)
 
 ### SLScheevo
 
