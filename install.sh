@@ -101,7 +101,7 @@ if [ -d "$project_root/.git" ]; then
     echo "${color_green}$symbol_check SLStools atualizado${color_reset}"
 else
     echo "Clonando SLStools..."
-    git clone --branch conquistas "$repo_url" "$project_root" --quiet
+    git clone --progress --branch conquistas "$repo_url" "$project_root" 
     echo "${color_green}$symbol_check SLStools clonado${color_reset}"
 fi
 
