@@ -28,9 +28,9 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 ```
 
 <p align="center">
-  <img src="assets/demo.gif" width="400"/>
+  <img src="assets/demo.png" width="400" style="display: inline-block; margin-right: 20px;"/>
+  <img src="assets/demo2.png" width="400" style="display: inline-block;"/>
 </p>
-
 - [Tutorial em vídeo](https://www.youtube.com/watch?v=fOD65CS8aL4)
 
 ## Config
@@ -51,9 +51,9 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 
 Abra o SLScheevo pelo menos uma vez para adicionar as credenciais.
 
-<p align="center">
-  <img src="assets/slstools-config.png" width="400"/>
-</p>
+### Online-fix
+
+Ative ou desative o checkbox "Ativar online-fix".
 
 ### Driver recomendado (Nvidia)
 - nvidia-driver-570
