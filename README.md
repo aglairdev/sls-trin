@@ -7,6 +7,7 @@
 - Tradução da interface para pt-BR 🇧🇷
 - `PlayNotOwnedGames: yes` setado por padrão
 - Atalho na área de trabalho configurado com a variável de ambiente do SLSsteam para evitar erros de inicialização por atalho gerado via apt
+- Integração com online-fix
 
 ## Requisitos
 
