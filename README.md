@@ -112,7 +112,7 @@ Botão direito no jogo — Propriedades — Compatibilidade — Forçar uso de f
 
 - [Tutorial em vídeo](https://www.youtube.com/watch?v=fOxr_FuCRdA)
 - [PortProton](https://flathub.org/pt-BR/apps/ru.linux_gaming.PortProton)
-- [Atalhos corrigidos](/scripts/Steamless/fix/)
+- [Atalhos corrigidos](https://github.com/aglairdev/SLStools/tree/fix)
 
 ### Jogos que dependem de launcher
 
