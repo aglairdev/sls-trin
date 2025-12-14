@@ -3,8 +3,8 @@
 
 ## Updates
 
-- O Accela foi otimizado com maior compatibilidade, instalação limpa e verificação automática de dependências.
-- O SLSah foi atualizado com verificação de dependências, detecção automática de terminal, atualização do repositório e atalho universal na área de trabalho.
+- O Accela foi otimizado com maior compatibilidade, instalação limpa e verificação automática de dependências
+- O SLSah foi atualizado com verificação de dependências, detecção automática de terminal, atualização do repositório e atalho universal na área de trabalho
 
 ## Requisitos
 
@@ -125,7 +125,7 @@ Baixar o fix e substituir os arquivos do jogo
 
 - [SLSsteam](https://github.com/AceSLS/SLSsteam)
 - [DepotDownloaderMod](https://github.com/SteamAutoCracks/DepotDownloaderMod)
-- [Conheci o Accela neste canal, mas seu real autor é desconhecido](https://www.youtube.com/watch?v=jQUEtr200SU)
+- Fontes onde conheci o Accela: [Ciskao](https://www.youtube.com/@ciskao) e [JD Ros](https://www.youtube.com/@JDRos)
 - [SLScheevo](https://github.com/xamionex/SLScheevo)
 - [SLSah](https://github.com/niwia/SLSah)
 - [Steamless](https://github.com/atom0s/Steamless)
