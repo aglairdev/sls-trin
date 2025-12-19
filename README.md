@@ -1,8 +1,9 @@
 [![Branch](https://img.shields.io/badge/Branch%20-SLStools-f070D0.svg?longCache=true&style=for-the-badge)](https://github.com/aglairdev/SLStools)
 
 > [!WARNING]
-> **Versão desatualizada do Accela** 
-> Aconselho estes dois canais para manter atualizado: [Ciskao](https://www.youtube.com/@ciskao) e [JD ROS](https://www.youtube.com/@JDRos)
+> **Versão desatualizada do Accela**
+> 
+> Recomendo os seguintes canais para manter-se atualizado: [Ciskao](https://www.youtube.com/@ciskao) e [JD ROS](https://www.youtube.com/@JDRos)
 
 ## Atualizações
 
@@ -13,7 +14,7 @@
 ## Requisitos
 
 - `curl`
-- Steam nativa (*não* compatível com Flatpak ou Snap)
+- Steam nativa (**não** compatível com Flatpak ou Snap)
 
 ## Distros testadas
 
@@ -108,7 +109,7 @@ Botão direito no jogo — Propriedades — Compatibilidade — Forçar uso de f
 `~/SLStools/scripts/Steamless` — Descompacta o arquivo — Faz uma cópia do `.exe` do jogo e cola na raiz do Steamless — Executa o `Steamless.exe` com PortProton, seleciona o atalho e gera a versão sem DRM — Substitui essa versão no local do jogo e renomeia conforme necessário
 
 > [!WARNING]
-> Steamless remove DRM, SteamStub e variantes. Portanto, Denuvo, entre outros, não irão funcionar.
+> Steamless remove DRM, SteamStub e variantes. Portanto, Denuvo, entre outros, não irão funcionar
 
 - [Tutorial em vídeo](https://www.youtube.com/watch?v=fOxr_FuCRdA)
 - [PortProton](https://flathub.org/pt-BR/apps/ru.linux_gaming.PortProton)
