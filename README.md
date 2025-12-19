@@ -1,13 +1,15 @@
-[![Branch: Accela original](https://img.shields.io/badge/Branch-Accela%20original-blue)](https://github.com/aglairdev/SLStools)
+[![Branch](https://img.shields.io/badge/Branch%20-Accela-f070D0.svg?longCache=true&style=for-the-badge)](https://github.com/aglairdev/SLStools)
 
-## Updates
+## Atualizações
 
-- Integração com SLScheevo
-- Modificação da interface do Accela para SLStools
+- Integração com o SLScheevo
+- Modificação da interface do Accela para se adaptar ao SLStools
 - Tradução da interface para pt-BR 🇧🇷
-- `PlayNotOwnedGames: yes` setado por padrão
-- Atalho na área de trabalho configurado com a variável de ambiente do SLSsteam para evitar erros de inicialização por atalho gerado via apt
-- Integração com online-fix
+- Configuração padrão de `PlayNotOwnedGames: yes`
+- Atalho na área de trabalho configurado com a variável de ambiente do SLSsteam, evitando erros de inicialização ao usar o atalho gerado via apt
+- Integração com o online-fix
+- Integração com a busca de Manifests via API Morrenus, inspirada na versão Accela 2.5.1. [Link para o Drive](https://gofile.io/d/bzrPXa)
+- Integração com a busca de Manifests direta, inspirada no Bifrost. [Link para o Drive](https://drive.google.com/file/d/1ltDw42-KjkSs1zvXwDtH9BwZJeXKQUYB/view), [Canal no Youtube - Geovany G](https://www.youtube.com/@vdmplays)
 
 ## Requisitos
 
@@ -28,8 +30,7 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 ```
 
 <p align="center">
-  <img src="assets/demo.png" width="400" style="display: inline-block; margin-right: 20px;"/>
-  <img src="assets/demo2.png" width="400" style="display: inline-block;"/>
+  <img src="assets/demo.png" width="500"/>
 </p>
 
 - [Tutorial em vídeo](https://www.youtube.com/watch?v=fOD65CS8aL4)
@@ -42,19 +43,26 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/instal
 - [Luatools](https://discord.com/invite/luatools)
 > luatools — gen-games-here — [appid]
 
-**Linux:**
+Linux:
 - O executável e o launcher (se houver) precisam de permissão de execução manual
 
-**Windows:**
+Windows:
 - Ative o Proton (recomenda-se a versão experimental)
 
 ### SLScheevo
 
-Abra o SLScheevo pelo menos uma vez para adicionar as credenciais.
+Abra o SLScheevo pelo menos uma vez para adicionar as credenciais
 
 ### Online-fix
 
-Ative ou desative o checkbox "Ativar online-fix".
+Ative ou desative o checkbox "Ativar online-fix"
+
+### Morrenus API
+
+- [Discord](https://manifest.morrenus.xyz/auth/discord)
+- [Site](https://manifest.morrenus.xyz/)
+
+> Entre primeiro no server do Discord e apenas depois gere a chave API
 
 ### Driver recomendado (Nvidia)
 - nvidia-driver-570
@@ -107,7 +115,7 @@ Clique com o botão direito do mouse no jogo — Propriedades — Compatibilidad
 `~/SLStools/scripts/Steamless` — Descompacta o arquivo — Faz uma cópia do `.exe` do jogo e cola na raiz do Steamless — Executa o `Steamless.exe` com PortProton, seleciona o atalho e gera a versão sem DRM — Substitui essa versão no local do jogo e renomeia conforme necessário
 
 > [!WARNING]
-> Steamless remove DRM, SteamStub e variantes. Portanto, Denuvo, entre outros, não irão funcionar.
+> Steamless remove DRM, SteamStub e variantes. Portanto, Denuvo, entre outros, não irão funcionar
 
 - [Tutorial em vídeo](https://www.youtube.com/watch?v=fOxr_FuCRdA)
 - [PortProton](https://flathub.org/pt-BR/apps/ru.linux_gaming.PortProton)
@@ -122,12 +130,6 @@ Baixar o fix e substituir os arquivos do jogo
 
 ## Créditos
 
-<p style="display: flex; align-items: center; gap: 8px;">
-  <img src="assets/credits.svg" alt="Credits Icon" width="20" height="20" />
-  <span>Meus sinceros agradecimentos a estes incríveis projetos: </span>
-  <img src="assets/credits.svg" alt="Credits Icon" width="20" height="20" />
-</p>
-
 - [SLSsteam](https://github.com/AceSLS/SLSsteam)
 - [DepotDownloaderMod](https://github.com/SteamAutoCracks/DepotDownloaderMod)
 - [Conheci o Accela neste canal](https://www.youtube.com/watch?v=jQUEtr200SU)
@@ -135,3 +137,4 @@ Baixar o fix e substituir os arquivos do jogo
 - [SLSah](https://github.com/niwia/SLSah)
 - [Steamless](https://github.com/atom0s/Steamless)
 - [ludusavi](https://github.com/mtkennerly/ludusavi)
+- [Morrenus API](https://manifest.morrenus.xyz/)
