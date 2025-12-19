@@ -30,7 +30,7 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/main/install.sh |
 ```
 
 <p align="center">
-  <img src="assets/demo.png" width="500"/>
+  <img src="assets/demo.gif" width="500"/>
 </p>
 
 - [Demonstração em vídeo](https://www.youtube.com/watch?v=fOD65CS8aL4)
