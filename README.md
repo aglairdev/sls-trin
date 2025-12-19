@@ -54,7 +54,7 @@ Ative a opção `SLSsteam Wrapper Mode`
 #### SLScheevo
 
 ```bash
-cd ~/SLStools/conquistas/SLScheevo
+cd ~/Accela/conquistas/SLScheevo
 ./run.sh
 ```
 > A ferramenta solicita credenciais da Steam
@@ -62,7 +62,7 @@ cd ~/SLStools/conquistas/SLScheevo
 #### SLSah
 
 ```bash
-cd ~/SLStools/conquistas/
+cd ~/Accela/conquistas/
 ./SLSah-M.sh
 ```
 
@@ -75,7 +75,7 @@ cd ~/SLStools/conquistas/
 ## Backup saves/conquistas
 
 ```bash
-cd ~/SLStools/scripts/
+cd ~/Accela/scripts/
 sudo chmod +x backup.sh
 ./backup.sh
 ```
@@ -83,7 +83,7 @@ sudo chmod +x backup.sh
 ## Desinstalação
 
 ```bash
-cd ~/SLStools/scripts
+cd ~/Accela/scripts
 sudo chmod +x uninstall.sh
 ./uninstall.sh
 ```
