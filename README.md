@@ -26,14 +26,14 @@
 ## Instalação
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/conquistas/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/main/install.sh | bash
 ```
 
 <p align="center">
   <img src="assets/demo.png" width="500"/>
 </p>
 
-- [Tutorial em vídeo](https://www.youtube.com/watch?v=fOD65CS8aL4)
+- [Demonstração em vídeo](https://www.youtube.com/watch?v=fOD65CS8aL4)
 
 ## Config
 

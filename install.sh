@@ -97,11 +97,11 @@ if [ -d "$project_root/.git" ]; then
     cd "$project_root"
     echo "Atualizando SLStools..."
     git reset --hard HEAD >/dev/null 2>&1
-    git pull --quiet
+    git pull --progress
     echo "${color_green}$symbol_check SLStools atualizado${color_reset}"
 else
     echo "Clonando SLStools..."
-    git clone --progress --branch conquistas "$repo_url" "$project_root" 
+    git clone --progress --branch main "$repo_url" "$project_root" 
     echo "${color_green}$symbol_check SLStools clonado${color_reset}"
 fi
 
