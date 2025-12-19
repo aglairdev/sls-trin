@@ -404,5 +404,4 @@ else
 fi
 
 echo
-echo "Instalação completa!"
-
+echo "${color_green}$symbol_check Instalação completa!${color_reset}"
