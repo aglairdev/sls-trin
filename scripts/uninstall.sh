@@ -2,7 +2,7 @@
 
 set -e
 
-ROOT_DIR="$HOME/SLStools"
+ROOT_DIR="$HOME/Accela"
 REPO_NAME="ACCELA"
 
 green=$(tput setaf 2)
@@ -14,11 +14,10 @@ cross="𐄂"
 divider="⚒"
 
 echo
-echo "--------------------------------"
-echo "      REMOÇÃO SLStools $divider      "
-echo "--------------------------------"
+echo "------------------------------------------"
+echo "      Desinstalação Accela $divider      "
+echo "------------------------------------------"
 
-# Remoção SLSsteam
 echo
 echo "Removendo SLSsteam..."
 SLSSTEAM_DIR="$ROOT_DIR/scripts/SLSsteam"
@@ -34,7 +33,6 @@ else
     echo "${red}$cross SLSsteam não está instalado${reset}"
 fi
 
-# Remoção configuração SLSsteam
 echo
 echo "Removendo configuração do SLSsteam..."
 CONFIG_SLSSTEAM="$HOME/.config/SLSsteam"
@@ -45,18 +43,16 @@ else
     echo "${red}$cross Configuração SLSsteam não encontrada${reset}"
 fi
 
-# Remoção ACCELA
 echo
-echo "Removendo ACCELA..."
+echo "Removendo Accela..."
 ACCELA_DIR="$ROOT_DIR/ACCELA"
 if [ -d "$ACCELA_DIR" ]; then
     rm -rf "$ACCELA_DIR"
-    echo "${green}$check ACCELA removida com sucesso${reset}"
+    echo "${green}$check Accela removida com sucesso${reset}"
 else
-    echo "${red}$cross ACCELA não está instalada${reset}"
+    echo "${red}$cross Accela não está instalada${reset}"
 fi
 
-# Remoção SLScheevo
 echo
 echo "Removendo SLScheevo..."
 SLSCHEEVO_DIR="$ROOT_DIR/conquistas/SLScheevo"
@@ -67,7 +63,6 @@ else
     echo "${red}$cross SLScheevo não está instalado${reset}"
 fi
 
-# Remoção do repositório ACCELA
 echo
 echo "Removendo diretório $REPO_NAME..."
 if [ -d "$ROOT_DIR" ]; then
@@ -77,31 +72,27 @@ else
     echo "${red}$cross Diretório $REPO_NAME não encontrado${reset}"
 fi
 
-# Remoção do atalho ACCELA
 echo
-echo "Removendo atalho ACCELA..."
-ACCELA_DESKTOP="$HOME/.local/share/applications/ACCELA.desktop"
+echo "Removendo atalho Accela..."
+ACCELA_DESKTOP="$HOME/.local/share/applications/accela.desktop"
 if [ -f "$ACCELA_DESKTOP" ]; then
     rm -f "$ACCELA_DESKTOP"
-    echo "${green}$check Atalho ACCELA removido com sucesso${reset}"
+    echo "${green}$check Atalho Accela removido com sucesso${reset}"
 else
-    echo "${red}$cross Atalho ACCELA não encontrado${reset}"
+    echo "${red}$cross Atalho Accela não encontrado${reset}"
 fi
 
-# Remoção do diretório ACCELA em ~/.local/share
 echo
-echo "Removendo diretório ACCELA de ~/.local/share..."
+echo "Removendo diretório Accela de ~/.local/share..."
 if [ -d "$HOME/.local/share/ACCELA" ]; then
     rm -rf "$HOME/.local/share/ACCELA"
-    echo "${green}$check Diretório ACCELA removido com sucesso${reset}"
+    echo "${green}$check Diretório Accela removido com sucesso${reset}"
 else
-    echo "${red}$cross Diretório ACCELA não encontrado em ~/.local/share${reset}"
+    echo "${red}$cross Diretório Accela não encontrado em ~/.local/share${reset}"
 fi
 
-# Restaurar atalho padrão da Steam
 echo
 echo "Restaurando atalho padrão da Steam..."
-
 STEAM_BIN="$(command -v steam || which steam || whereis -b steam | awk '{print $2}')"
 DESKTOP_DIR="$HOME/.local/share/applications"
 DESKTOP_FILE="$DESKTOP_DIR/steam.desktop"
@@ -122,7 +113,26 @@ else
     echo "${red}$cross Steam não encontrada para restaurar atalho${reset}"
 fi
 
-# Atualizar cache de atalhos e ícones
+echo
+echo "Removendo atalho steam-schema-generator..."
+STEAM_SCHEMA_GENERATOR_DESKTOP="$HOME/.local/share/applications/steam-schema-generator.desktop"
+if [ -f "$STEAM_SCHEMA_GENERATOR_DESKTOP" ]; then
+    rm -f "$STEAM_SCHEMA_GENERATOR_DESKTOP"
+    echo "${green}$check Atalho steam-schema-generator removido com sucesso${reset}"
+else
+    echo "${red}$cross Atalho steam-schema-generator não encontrado${reset}"
+fi
+
+echo
+echo "Removendo diretório ~/steam-schema-generator..."
+STEAM_SCHEMA_GENERATOR_DIR="$HOME/steam-schema-generator"
+if [ -d "$STEAM_SCHEMA_GENERATOR_DIR" ]; then
+    rm -rf "$STEAM_SCHEMA_GENERATOR_DIR"
+    echo "${green}$check Diretório steam-schema-generator removido com sucesso${reset}"
+else
+    echo "${red}$cross Diretório steam-schema-generator não encontrado${reset}"
+fi
+
 echo "Atualizando cache de atalhos e ícones..."
 if command -v update-desktop-database &>/dev/null; then
     update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
@@ -131,6 +141,5 @@ if command -v gtk-update-icon-cache &>/dev/null; then
     gtk-update-icon-cache -f "$HOME/.local/share/icons/hicolor" >/dev/null 2>&1 || true
 fi
 
-# Finalização
 echo
-echo "${green}$check SLSsteam, ACCELA, SLSah, SLScheevo e Steamless foram adicionados com sucesso${reset}"
+echo "${green}$check SLSsteam, Accela, SLSah, SLScheevo, Steamless, e steam-schema-generator foram removidos com sucesso${reset}"

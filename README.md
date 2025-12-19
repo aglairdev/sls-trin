@@ -1,15 +1,19 @@
-[![Branch: SLStools integrado com conquistas](https://img.shields.io/badge/Branch-SLStools%20integrado%20com%20conquistas%20-blue)](https://github.com/aglairdev/SLStools/tree/conquistas)
+[![Branch](https://img.shields.io/badge/Branch%20-SLStools-f070D0.svg?longCache=true&style=for-the-badge)](https://github.com/aglairdev/SLStools)
 
+> [!WARNING]
+> **Versão desatualizada do Accela** 
+> Aconselho estes dois canais para manter atualizado: [Ciskao](https://www.youtube.com/@ciskao) e [JD ROS](https://www.youtube.com/@JDRos)
 
-## Updates
+## Atualizações
 
 - O Accela foi otimizado com maior compatibilidade, instalação limpa e verificação automática de dependências
 - O SLSah foi atualizado com verificação de dependências, detecção automática de terminal, atualização do repositório e atalho universal na área de trabalho
+- Configuração padrão de `PlayNotOwnedGames: yes`
 
 ## Requisitos
 
 - `curl`
-- Steam nativa (não compatível com Flatpak ou Snap)
+- Steam nativa (*não* compatível com Flatpak ou Snap)
 
 ## Distros testadas
 
@@ -22,15 +26,11 @@
 ## Instalação
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/accela/install.sh | bash
 ```
 
-<p align="center">
-  <img src="assets/demo.gif" width="400"/>
-</p>
-
-- [Tutorial com SLScheevo](https://www.youtube.com/watch?v=L3NCe-Yk0vs)
-- [Tutorial com SLSah](https://www.youtube.com/watch?v=MH8kYaEtA6U)
+- [Demonstração com SLScheevo](https://www.youtube.com/watch?v=L3NCe-Yk0vs)
+- [Demonstração com SLSah](https://www.youtube.com/watch?v=MH8kYaEtA6U)
 
 ## Config
 
@@ -56,7 +56,7 @@ Ative a opção `SLSsteam Wrapper Mode`
 cd ~/SLStools/conquistas/SLScheevo
 ./run.sh
 ```
-> A ferramenta solicita credenciais da Steam.
+> A ferramenta solicita credenciais da Steam
 
 #### SLSah
 
@@ -65,7 +65,7 @@ cd ~/SLStools/conquistas/
 ./SLSah-M.sh
 ```
 
-> A ferramenta solicita uma chave API e ID da Steam.
+> A ferramenta solicita uma chave API e ID da Steam
 
 ### Driver recomendado (Nvidia)
 

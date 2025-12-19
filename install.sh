@@ -2,21 +2,18 @@
 
 set -e
 
-project_root="$(pwd)"
-main_repo="SLStools"
-repo_url="https://github.com/aglairdev/$main_repo.git"
-scripts_dir="$project_root/$main_repo/scripts"  # Caminho correto para scripts dentro de SLStools
-conquistas_dir="$project_root/$main_repo/conquistas"
-
+project_root="$HOME/Accela"
+repo_url="https://github.com/aglairdev/SLStools.git"
+scripts_dir="$project_root/scripts"
 color_green=$(tput setaf 2)
 color_red=$(tput setaf 1)
+color_yellow=$(tput setaf 3)
 color_reset=$(tput sgr0)
 
 symbol_check="✓"
 symbol_cross="𐄂"
 symbol_divider="⚒"
 
-# Spinner
 spinner() {
     local pid=$!
     local delay=0.1
@@ -31,18 +28,14 @@ spinner() {
 }
 
 echo
-echo "---------------------------------------------------------------"
-echo "         SLStools $symbol_divider         "
-echo "---------------------------------------------------------------"
-echo "  Instalando SLSsteam, ACCELA, SLSah, SLScheevo e Steamless"
-echo "---------------------------------------------------------------"
+echo "---------------------------------------------------------------------"
+echo "  Instalação Accela, SLSsteam, Steamless, SLSah e SLScheevo $divider $symbol_divider"
+echo "---------------------------------------------------------------------"
 
-# Password
 echo
-echo "[sudo] Será solicitada a senha para continuar..."
+echo "[sudo] Será solicitado a senha para continuar..."
 sudo -v
 
-# Dependências
 dependencies=(
     git make unzip g++ pkg-config figlet whiptail libssl-dev
     g++-multilib gcc-multilib libc6-dev-i386 libssl-dev:i386
@@ -54,7 +47,7 @@ dependencies=(
 )
 
 echo
-echo "Instalando dependências necessárias..."
+echo "Instalando dependências..."
 for package in "${dependencies[@]}"; do
     if ! command -v "$package" >/dev/null 2>&1 && ! dpkg -s "$package" >/dev/null 2>&1; then
         if command -v apt >/dev/null 2>&1; then
@@ -76,23 +69,18 @@ echo "${color_green}$symbol_check Dependências instaladas com sucesso${color_re
 
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig"
 
-# Atalho Steam
 echo
 echo "Verificando instalação da Steam..."
-
 steam_binary="$(command -v steam || which steam || whereis -b steam | awk '{print $2}')"
 
 if [ -z "$steam_binary" ]; then
-    echo "${color_red}$symbol_cross Steam não encontrada no sistema${color_reset}"
+    echo "${color_red}$symbol_cross Steam não encontrada${color_reset}"
     exit 1
 else
     echo "${color_green}$symbol_check Steam encontrada em: $steam_binary${color_reset}"
-
     desktop_dir="$HOME/.local/share/applications"
     desktop_file="$desktop_dir/steam.desktop"
-
     mkdir -p "$desktop_dir"
-
     if [ ! -f "$desktop_file" ]; then
         echo "Criando atalho steam.desktop..."
         cat <<EOF > "$desktop_file"
@@ -109,56 +97,52 @@ EOF
     fi
 fi
 
-# Clonagem SLStools
+mkdir -p "$project_root"
+mkdir -p "$scripts_dir"
+
 echo
-if [ -d "$project_root/$main_repo" ]; then
-    echo "Pasta $main_repo já existe. Atualizando via git pull..."
-    cd "$project_root/$main_repo"
-    git reset --hard HEAD >/dev/null 2>&1
-    git pull --quiet
+echo "Clonando ou atualizando o repositório SLStools na branch accela..."
+if [ -d "$project_root/.git" ]; then
     cd "$project_root"
-    echo "${color_green}$symbol_check Repositório atualizado${color_reset}"
+    git fetch --all
+    git checkout accela
+    git reset --hard HEAD
+    git pull
+    echo "${color_green}$symbol_check SLStools atualizado na branch accela${color_reset}"
 else
-    echo "Clonando repositório principal $main_repo..."
-    git clone "$repo_url" "$project_root/$main_repo" --quiet
+    if [ -d "$project_root" ] && [ "$(ls -A "$project_root" 2>/dev/null | wc -l)" -gt 0 ]; then
+        rm -rf "$project_root"
+    fi
+    git clone --branch accela "$repo_url" "$project_root"
+    echo "${color_green}$symbol_check SLStools clonado na branch accela${color_reset}"
 fi
 
-# Garantir que a pasta scripts exista dentro de SLStools
-echo "Verificando/Criação do diretório de scripts dentro de SLStools..."
-mkdir -p "$scripts_dir"  # Garantir que a pasta "scripts" esteja dentro de SLStools, não fora
-
-# Clonagem do SLSsteam
 echo
-echo "Clonando/atualizando SLSsteam dentro de $main_repo/scripts..."
+echo "Instalando SLSsteam..."
 slssteam_dir="$scripts_dir/SLSsteam"
 if [ -d "$slssteam_dir" ]; then
     cd "$slssteam_dir"
-    git reset --hard HEAD >/dev/null 2>&1
+    git reset --hard HEAD
     git pull --quiet
-    cd "$project_root/$main_repo"
+    cd "$project_root"
     echo "${color_green}$symbol_check SLSsteam atualizado${color_reset}"
 else
     git clone "https://github.com/AceSLS/SLSsteam.git" "$slssteam_dir" --quiet
     echo "${color_green}$symbol_check SLSsteam clonado${color_reset}"
 fi
 
-# Instalação SLSsteam
 echo
-echo "Instalando SLSsteam..."
+echo "Compilando e instalando SLSsteam..."
 cd "$slssteam_dir"
-make >/dev/null 2>&1
+make >/dev/null 2>&1 || true
 chmod +x setup.sh
 ./setup.sh install >/dev/null 2>&1
 echo "${color_green}$symbol_check SLSsteam instalado com sucesso${color_reset}"
 
-cd "$project_root/$main_repo"
-
-# Instalação ACCELA
 echo
-echo "Instalando ACCELA..."
-
+echo "Instalando Accela..."
 if [ ! -f "$scripts_dir/Accela-M.zip" ]; then
-    echo "${color_red}$symbol_cross Arquivo Accela-M.zip não encontrado em $scripts_dir!${color_reset}"
+    echo "${color_red}$symbol_cross Não foi encontrado o arquivo Accela-M.zip em $scripts_dir${color_reset}"
     echo "Coloque o arquivo na pasta antes de continuar."
     exit 1
 fi
@@ -167,40 +151,33 @@ unzip -o "$scripts_dir/Accela-M.zip" -d "$scripts_dir" >/dev/null 2>&1
 cd "$scripts_dir/Accela-M"
 chmod +x ./ACCELAINSTALL
 ./ACCELAINSTALL || {
-    echo "${color_red}$symbol_cross Falha na instalação do ACCELA${color_reset}"
+    echo "${color_red}$symbol_cross Falha na instalação do Accela${color_reset}"
     exit 1
 }
 
 if [ -x "$HOME/.local/share/ACCELA/bin/ACCELA" ]; then
-    echo "${color_green}$symbol_check ACCELA instalada com sucesso${color_reset}"
+    echo "${color_green}$symbol_check Accela instalado com sucesso${color_reset}"
 else
-    echo "${color_red}$symbol_cross ACCELA não foi instalada corretamente${color_reset}"
+    echo "${color_red}$symbol_cross Falha na instalação do Accela${color_reset}"
     exit 1
 fi
 
-# SLSah (já dentro do repositório SLStools)
 echo
-echo "SLSah já foi clonado do repositório SLStools."
-
-# Clonando SLScheevo
-echo
-echo "Clonando SLScheevo dentro de $main_repo/conquistas..."
-slscheevo_dir="$conquistas_dir/SLScheevo"
+echo "Clonando SLScheevo..."
+slscheevo_dir="$scripts_dir/SLScheevo"
 if [ -d "$slscheevo_dir" ]; then
     cd "$slscheevo_dir"
-    git reset --hard HEAD >/dev/null 2>&1
+    git reset --hard HEAD
     git pull --quiet
-    cd "$project_root/$main_repo"
+    cd "$project_root"
     echo "${color_green}$symbol_check SLScheevo atualizado${color_reset}"
 else
     git clone "https://github.com/xamionex/SLScheevo.git" "$slscheevo_dir" --quiet
-    echo "${color_green}$symbol_check SLScheevo clonado com sucesso${color_reset}"
+    echo "${color_green}$symbol_check SLScheevo clonado${color_reset}"
 fi
 
-# Baixando Steamless
 echo
 echo "Baixando Steamless..."
-
 steamless_dir="$scripts_dir/Steamless"
 steamless_url="https://github.com/atom0s/Steamless/releases/download/v3.1.0.5/Steamless.v3.1.0.5.-.by.atom0s.zip"
 mkdir -p "$steamless_dir"
@@ -210,9 +187,98 @@ if [ ! -f "$steamless_dir/Steamless.v3.1.0.5.-.by.atom0s.zip" ]; then
     (wget -q "$steamless_url" -O "$steamless_dir/Steamless.v3.1.0.5.-.by.atom0s.zip") & spinner
     echo "${color_green}$symbol_check Steamless baixado${color_reset}"
 else
-    echo "${color_green}$symbol_check Steamless já está atualizado${color_reset}"
+    echo "${color_green}$symbol_check Steamless já atualizado${color_reset}"
 fi
 
-# Finalização
+unzip -o "$steamless_dir/Steamless.v3.1.0.5.-.by.atom0s.zip" -d "$steamless_dir" >/dev/null 2>&1 || true
+
 echo
-echo "${color_green}$symbol_check SLSsteam, ACCELA, SLSah, SLScheevo e Steamless foram adicionados com sucesso. ${color_reset}"
+echo "${color_yellow}Iniciando a Steam para gerar ~/.config/SLSsteam${color_reset}"
+steam_log="/tmp/steam_start.log.$$"
+set +e
+desktop_id="$(basename "$desktop_file" .desktop)"
+if command -v gtk-launch >/dev/null 2>&1; then
+    gtk-launch "$desktop_id" >/dev/null 2>&1 &
+elif command -v gio >/dev/null 2>&1; then
+    gio open "$desktop_file" >/dev/null 2>&1 &
+elif command -v xdg-open >/dev/null 2>&1; then
+    xdg-open "$desktop_file" >/dev/null 2>&1 &
+else
+    env LD_AUDIT="$slssteam_so" nohup "$steam_binary" >"$steam_log" 2>&1 &
+fi
+sleep 1
+max_wait=60
+elapsed=0
+success=0
+while [ $elapsed -lt $max_wait ]; do
+    if [ -d "$HOME/.config/SLSsteam" ]; then
+        success=1
+        break
+    fi
+    sleep 1
+    elapsed=$((elapsed+1))
+done
+
+if [ $success -eq 1 ]; then
+    echo "${color_green}$symbol_check Steam iniciada e arquivos ~/.config/SLSsteam detectados${color_reset}"
+else
+    echo "${color_red}$symbol_cross Não foi possível detectar ~/.config/SLSsteam após ${max_wait}s${color_reset}"
+    if [ -f "$steam_log" ]; then
+        echo "Últimas linhas do log:"
+        tail -n 30 "$steam_log" 2>/dev/null || true
+    fi
+    echo "${color_red}Verifique se a sessão gráfica está ativa e se o desktop entry $desktop_file está sendo usado para iniciar a Steam.${color_reset}"
+    exit 1
+fi
+set -e
+
+echo
+echo "${color_yellow}Fechando Steam...${color_reset}"
+if command -v steam >/dev/null 2>&1; then
+    steam -shutdown >/dev/null 2>&1 || true
+fi
+
+shutdown_wait=30
+sw=0
+while pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1 && [ $sw -lt $shutdown_wait ]; do
+    sleep 1
+    sw=$((sw+1))
+done
+
+if pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
+    pkill -15 -u "$USER" -f steam >/dev/null 2>&1 || true
+    sleep 2
+fi
+
+if pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
+    pkill -9 -u "$USER" -f steam >/dev/null 2>&1 || true
+fi
+
+if pgrep -u "$USER" -f "[s]team" >/dev/null 2>&1; then
+    echo "${color_red}$symbol_cross Não foi possível encerrar todos os processos do Steam${color_reset}"
+    exit 1
+else
+    echo "${color_green}$symbol_check Steam encerrada com sucesso${color_reset}"
+fi
+
+slssteam_config_dir="$HOME/.config/SLSsteam"
+config_file="$slssteam_config_dir/config.yaml"
+
+echo
+echo "${color_yellow}Editando $config_file ${color_reset}"
+if [ -f "$config_file" ]; then
+    cp "$config_file" "$config_file.bak.$(date +%s)" 2>/dev/null || true
+    if grep -qE '^[[:space:]]*PlayNotOwnedGames:' "$config_file"; then
+        sed -i -E 's/^[[:space:]]*PlayNotOwnedGames:[[:space:]]*(no|false|0)/PlayNotOwnedGames: yes/I' "$config_file"
+        sed -i -E 's/^[[:space:]]*PlayNotOwnedGames:[[:space:]]*(yes|true|1)/PlayNotOwnedGames: yes/I' "$config_file"
+    else
+        echo "PlayNotOwnedGames: yes" >> "$config_file"
+    fi
+    echo "${color_green}$symbol_check $config_file editado com sucesso${color_reset}"
+else
+    echo "${color_red}$symbol_cross $config_file não encontrado${color_reset}"
+    exit 1
+fi
+
+echo
+echo "${color_green}$symbol_check Instalação completa!${color_reset}"

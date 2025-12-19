@@ -2,7 +2,7 @@
 
 set -e
 
-project_root="$HOME/SLStools/scripts"
+project_root="$HOME/Accela/scripts"
 backup_dir="$project_root/steam_backup"
 tutorial_file="$backup_dir/tutorial.txt"
 
@@ -15,11 +15,9 @@ symbol_cross="𐄂"
 symbol_divider="⚒"
 
 echo
-echo "---------------------------------------"
-echo "     BACKUP STEAM DATA $symbol_divider     "
-echo "---------------------------------------"
-echo "     Fazendo Backup                    "
-echo "---------------------------------------"
+echo "-------------------"
+echo "     Backup  $symbol_divider"
+echo "-------------------"
 
 echo
 echo "[sudo] Será solicitada a senha para varredura completa..."
