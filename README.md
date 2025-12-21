@@ -22,6 +22,7 @@
 |----------|:-------: |
 | Kubuntu  |   ✅     |
 | Zorin    |   ✅     |
+| Mint     |   ✅     |
 
 ## Instalação
 
