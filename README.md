@@ -3,7 +3,13 @@
 > [!WARNING]
 > **Versão desatualizada do Accela**
 > 
-> Recomendo os seguintes canais para manter-se atualizado: [Ciskao](https://www.youtube.com/@ciskao) e [JD ROS](https://www.youtube.com/@JDRos)
+> A atual versão do Accela `2026.01.01-15_42_36` abrange personalização, instalação do SLSsteam, remoção eficaz de DRM através do Steamless, geração de conquistas com SLScheevo, remoção de jogos, adição de jogos via API Morrenus entre outros
+>
+> O instalador [enter-the-wired](https://github.com/ciscosweater/enter-the-wired) instala todas dependências necessárias para funcionamento e a última versão do Accela
+>
+> Recomendo as seguintes fontes para manter-se atualizado: [Ciskao - Youtube](https://www.youtube.com/@ciskao) | [Ciskao - Discord](https://discord.gg/J9UApb8q) e [JD ROS - Youtube](https://www.youtube.com/@JDRos)
+>
+> Fiz um [vídeo-tutorial](https://www.youtube.com/watch?v=JO1L282VJV0) usando `enter-the-wired`, [Millennium](https://github.com/SteamClientHomebrew/Millennium), [Cyberia](https://github.com/ciscosweater/cyberia) e `Morrenus-API`
 
 ## Atualizações
 
@@ -29,9 +35,6 @@
 ```bash
 curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/accela/install.sh | bash
 ```
-
-- [Demonstração com SLScheevo](https://www.youtube.com/watch?v=L3NCe-Yk0vs)
-- [Demonstração com SLSah](https://www.youtube.com/watch?v=MH8kYaEtA6U)
 
 ## Config
 
@@ -119,14 +122,13 @@ Botão direito no jogo — Propriedades — Compatibilidade — Forçar uso de f
 
 Baixar o fix e substituir os arquivos do jogo
 
-- [Tutorial em vídeo](https://www.youtube.com/watch?v=a2dd0BnXN4s)
 - [Fixes - Ryuu](https://generator.ryuu.lol/fixes)
 
 ## Créditos
 
 - [SLSsteam](https://github.com/AceSLS/SLSsteam)
 - [DepotDownloaderMod](https://github.com/SteamAutoCracks/DepotDownloaderMod)
-- Fontes onde conheci o Accela: [Ciskao](https://www.youtube.com/@ciskao) e [JD Ros](https://www.youtube.com/@JDRos)
+- Accela: *Autores desconhecidos.* Fontes confiáveis: [Ciskao - Youtube](https://www.youtube.com/@ciskao) | [Ciskao - Discord](https://discord.gg/g5rzCecj) e [JD Ros - Youtube](https://www.youtube.com/@JDRos)
 - [SLScheevo](https://github.com/xamionex/SLScheevo)
 - [SLSah](https://github.com/niwia/SLSah)
 - [Steamless](https://github.com/atom0s/Steamless)
