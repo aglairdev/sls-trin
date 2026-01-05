@@ -1,7 +1,7 @@
 [![Branch](https://img.shields.io/badge/Branch%20-Accela-f070D0.svg?longCache=true&style=for-the-badge)](https://github.com/aglairdev/SLStools/tree/accela)
 
 > [!WARNING]
-> **Versão desatualizada do Accela**
+> **Este fork não acompanha a versão atual do Accela**
 > 
 > A atual versão do Accela `2026.01.01-15_42_36` abrange personalização, instalação do SLSsteam, remoção eficaz de DRM através do Steamless, geração de conquistas com SLScheevo, remoção de jogos, adição de jogos via API Morrenus entre outros
 >
