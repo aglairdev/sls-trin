@@ -1,15 +1,26 @@
 [![Branch](https://img.shields.io/badge/Branch%20-Accela-f070D0.svg?longCache=true&style=for-the-badge)](https://github.com/aglairdev/SLStools/tree/accela)
 
+> [!WARNING]
+> **Versão desatualizada do Accela**
+> 
+> A atual versão do Accela `2026.01.01-15_42_36` abrange personalização, instalação do SLSsteam, remoção eficaz de DRM através do Steamless, geração de conquistas com SLScheevo, remoção de jogos, adição de jogos via API Morrenus entre outros
+>
+> O instalador [enter-the-wired](https://github.com/ciscosweater/enter-the-wired) instala todas dependências necessárias para funcionamento e a última versão do Accela
+>
+> Recomendo as seguintes fontes para manter-se atualizado: [Ciskao - Youtube](https://www.youtube.com/@ciskao) | [Ciskao - Discord](https://discord.gg/J9UApb8q) e [JD ROS - Youtube](https://www.youtube.com/@JDRos)
+>
+> Fiz um [vídeo-tutorial](https://www.youtube.com/watch?v=JO1L282VJV0) usando `enter-the-wired`, [Millennium](https://github.com/SteamClientHomebrew/Millennium), [Cyberia](https://github.com/ciscosweater/cyberia) e `Morrenus-API`
+
 ## Atualizações
 
 - Integração com o SLScheevo
 - Modificação da interface do Accela para se adaptar ao SLStools
 - Tradução da interface para pt-BR 🇧🇷
 - Configuração padrão de `PlayNotOwnedGames: yes`
-- Atalho na área de trabalho configurado com a variável de ambiente do SLSsteam, evitando erros de inicialização ao usar o atalho gerado via apt
-- Integração com o online-fix
-- Integração com a busca de Manifests via API Morrenus, inspirada na versão Accela 2.5.1. [Link para o Drive](https://gofile.io/d/bzrPXa)
-- Integração com a busca de Manifests direta, inspirada no Bifrost. [Link para o Drive](https://drive.google.com/file/d/1ltDw42-KjkSs1zvXwDtH9BwZJeXKQUYB/view), [Canal no Youtube - Geovany G](https://www.youtube.com/@vdmplays)
+- Atalho no desktop configurado com a variável de ambiente do SLSsteam, evitando erros de inicialização causados por atalhos incorretos
+- Integração com "online-fix"
+- Integração com a busca de Manifests via API Morrenus, inspirada na versão Accela 2.5.1. [Drive](https://gofile.io/d/bzrPXa)
+- Integração com a busca de Manifests direta, inspirada no Bifrost. [Drive](https://drive.google.com/file/d/1ltDw42-KjkSs1zvXwDtH9BwZJeXKQUYB/view), [Geovany G - Youtube](https://www.youtube.com/@vdmplays)
 
 ## Requisitos
 
@@ -23,6 +34,9 @@
 | Kubuntu  |   ✅     |
 | Zorin    |   ✅     |
 | Mint     |   ✅     |
+| Cachy    |   ✅     |
+| Manjaro  |   ✅     |
+| Arch     |   ✅     |
 
 ## Instalação
 
@@ -33,8 +47,6 @@ curl -sSL https://raw.githubusercontent.com/aglairdev/SLStools/main/install.sh |
 <p align="center">
   <img src="assets/demo.gif" width="500"/>
 </p>
-
-- [Tutorial em vídeo](https://youtu.be/fy8RvgrcNtQ?si=p3fu4NKGZGgM1l9A)
 
 ## Config
 
@@ -126,14 +138,13 @@ Clique com o botão direito do mouse no jogo — Propriedades — Compatibilidad
 
 Baixar o fix e substituir os arquivos do jogo
 
-- [Tutorial em vídeo](https://www.youtube.com/watch?v=a2dd0BnXN4s)
 - [Fixes - Ryuu](https://generator.ryuu.lol/fixes)
 
 ## Créditos
 
 - [SLSsteam](https://github.com/AceSLS/SLSsteam)
 - [DepotDownloaderMod](https://github.com/SteamAutoCracks/DepotDownloaderMod)
-- Fontes onde conheci o Accela: [Ciskao](https://www.youtube.com/@ciskao) e [JD Ros](https://www.youtube.com/@JDRos)
+- Accela: *Autores desconhecidos.* Fontes confiáveis: [Ciskao - Youtube](https://www.youtube.com/@ciskao) | [Ciskao - Discord](https://discord.gg/g5rzCecj) e [JD Ros - Youtube](https://www.youtube.com/@JDRos)
 - [SLScheevo](https://github.com/xamionex/SLScheevo)
 - [SLSah](https://github.com/niwia/SLSah)
 - [Steamless](https://github.com/atom0s/Steamless)
