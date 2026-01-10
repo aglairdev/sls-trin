@@ -8,8 +8,6 @@
 > O instalador [enter-the-wired](https://github.com/ciscosweater/enter-the-wired) instala todas dependências necessárias para funcionamento e a última versão do Accela
 >
 > Recomendo as seguintes fontes para manter-se atualizado: [Ciskao - Youtube](https://www.youtube.com/@ciskao) | [Ciskao - Discord](https://discord.gg/J9UApb8q) e [JD ROS - Youtube](https://www.youtube.com/@JDRos)
->
-> Fiz um [vídeo-tutorial](https://www.youtube.com/watch?v=JO1L282VJV0) usando `enter-the-wired`, [Millennium](https://github.com/SteamClientHomebrew/Millennium), [Cyberia](https://github.com/ciscosweater/cyberia) e `Morrenus-API`
 
 ## Atualizações
 
